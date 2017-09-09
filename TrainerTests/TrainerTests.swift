@@ -21,11 +21,16 @@ class TrainerTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testTimeIntervalFormat() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let time = TimeInterval(70.0)
+        XCTAssertEqual(time.format(), "1:10")
     }
     
+    func testIntervalChange() {
+        
+    }
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
