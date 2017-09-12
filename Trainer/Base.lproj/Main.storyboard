@@ -40,7 +40,7 @@
                                 </items>
                             </toolbar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ooh-3m-G3z">
-                                <rect key="frame" x="16" y="64" width="343" height="496"/>
+                                <rect key="frame" x="16" y="64" width="343" height="461"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="742-Iu-ThJ">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="101"/>
@@ -141,13 +141,6 @@
                                         <state key="normal" title="Start"/>
                                         <connections>
                                             <action selector="controlWorkout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zjk-Ho-Kum"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axz-B4-HB3">
-                                        <rect key="frame" x="0.0" y="466" width="343" height="30"/>
-                                        <state key="normal" title="Show Notice"/>
-                                        <connections>
-                                            <action selector="showNotice:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qef-CO-6qv"/>
                                         </connections>
                                     </button>
                                 </subviews>

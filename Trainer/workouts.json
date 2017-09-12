@@ -1,0 +1,11 @@
+{
+    "workouts" : [{
+                    "description" : ["Brisk 5- minute warm-up walk", "Alternate 5 minutes of jogging with 2 minutes of walking",
+                                     "Repeat 5 times for a total of 35 minutes", "Followed by a 5-minute cool down"],
+                  "warmup" : {"activity" : "Walk", "duration" : 5},
+                  "intervals" : {
+                  "repeats" : 5,
+                  "phases" : [{"activity" : "Jog", "duration" : 5}, {"activity" : "Walk", "duration" 2}]
+                  }
+    }]
+}

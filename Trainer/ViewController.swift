@@ -29,8 +29,33 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblActivity: UILabel!
     @IBOutlet weak var lblTimeToGo: UILabel!
     
+    let defs = UserDefaults.standard
+
     // time tracking parameters
     var timer:Timer = Timer()
+    
+    var workoutNum:Int {
+        get {
+            return defs.integer(forKey: "workoutNum")
+        }
+        set {
+            defs.set(newValue, forKey: "workoutNum")
+        }
+    }
+    
+    var completedWorkouts:[Int] {
+        get {
+            if let array = defs.array(forKey: "completedWorkouts") as? [Int] {
+                return array
+            }
+            else {
+                return []
+            }
+        }
+        set {
+            defs.set(newValue, forKey: "completedWorkouts")
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +69,11 @@ class ViewController: UIViewController {
         }
 
         self.readPlist()
-        currentWorkout = workouts[0]
+        currentWorkout = workouts[workoutNum]
         fillDescription(currentWorkout!)
         updateLabels()
     }
-    // Read the plist for this project and fill in the settings
+    // Read the plist for the workouts and fill in the settings
     func readPlist() {
         var workoutDefs:[[String:AnyObject]] = []
         var format = PropertyListSerialization.PropertyListFormat.xml //format of the property list
@@ -90,7 +115,6 @@ class ViewController: UIViewController {
         for phaseNum in 1...workout.phases.count - 1 {
             let phase = workout.phases[phaseNum]
             let content = createContent(step: phase)
-            print("\(workout.phases[phaseNum - 1].endTime!.timeIntervalSinceNow)")
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: workout.phases[phaseNum - 1].endTime!.timeIntervalSinceNow, repeats: false)
             addNotification(trigger: trigger, content: content, identifier: "Phase \(phaseNum)")
         }
