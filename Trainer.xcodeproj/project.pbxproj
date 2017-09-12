@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		870193111F6722750095D847 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870193101F6722750095D847 /* Workout.swift */; };
 		87AD14831F644852009D778A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14821F644852009D778A /* AppDelegate.swift */; };
 		87AD14851F644852009D778A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14841F644852009D778A /* ViewController.swift */; };
 		87AD14881F644852009D778A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AD14861F644852009D778A /* Main.storyboard */; };
@@ -15,7 +16,7 @@
 		87AD14901F644852009D778A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AD148E1F644852009D778A /* LaunchScreen.storyboard */; };
 		87AD149B1F644852009D778A /* TrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD149A1F644852009D778A /* TrainerTests.swift */; };
 		87AD14A61F644852009D778A /* TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14A51F644852009D778A /* TrainerUITests.swift */; };
-		87AD14B41F645AE2009D778A /* workout.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87AD14B31F645AE2009D778A /* workout.plist */; };
+		87AD14B41F645AE2009D778A /* workouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87AD14B31F645AE2009D778A /* workouts.plist */; };
 		87AD14B61F64788A009D778A /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14B51F64788A009D778A /* Phase.swift */; };
 		87AD14B81F648267009D778A /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14B71F648267009D778A /* TimeInterval.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		870193101F6722750095D847 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		87AD147F1F644852009D778A /* Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AD14821F644852009D778A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		87AD14841F644852009D778A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -52,7 +54,7 @@
 		87AD14A11F644852009D778A /* TrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AD14A51F644852009D778A /* TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerUITests.swift; sourceTree = "<group>"; };
 		87AD14A71F644852009D778A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		87AD14B31F645AE2009D778A /* workout.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = workout.plist; sourceTree = "<group>"; };
+		87AD14B31F645AE2009D778A /* workouts.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = workouts.plist; sourceTree = "<group>"; };
 		87AD14B51F64788A009D778A /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 		87AD14B71F648267009D778A /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,9 +114,10 @@
 				87AD148E1F644852009D778A /* LaunchScreen.storyboard */,
 				87AD14911F644852009D778A /* Info.plist */,
 				87AD14891F644852009D778A /* Trainer.xcdatamodeld */,
-				87AD14B31F645AE2009D778A /* workout.plist */,
+				87AD14B31F645AE2009D778A /* workouts.plist */,
 				87AD14B51F64788A009D778A /* Phase.swift */,
 				87AD14B71F648267009D778A /* TimeInterval.swift */,
+				870193101F6722750095D847 /* Workout.swift */,
 			);
 			path = Trainer;
 			sourceTree = "<group>";
@@ -246,7 +249,7 @@
 			files = (
 				87AD14901F644852009D778A /* LaunchScreen.storyboard in Resources */,
 				87AD148D1F644852009D778A /* Assets.xcassets in Resources */,
-				87AD14B41F645AE2009D778A /* workout.plist in Resources */,
+				87AD14B41F645AE2009D778A /* workouts.plist in Resources */,
 				87AD14881F644852009D778A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +280,7 @@
 				87AD14851F644852009D778A /* ViewController.swift in Sources */,
 				87AD14831F644852009D778A /* AppDelegate.swift in Sources */,
 				87AD14B61F64788A009D778A /* Phase.swift in Sources */,
+				870193111F6722750095D847 /* Workout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

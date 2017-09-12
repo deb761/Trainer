@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>description</key>
+		<array>
+			<string>Brisk 5-minute warm-up walk</string>
+			<string>Alternate 5 minutes of jogging and 2 minutes of walking.</string>
+			<string>Repeat 5 times for a total of 35 minutes</string>
+			<string>Followed by a 5-minute cool down</string>
+		</array>
+		<key>warmup</key>
+		<dict>
+			<key>activity</key>
+			<string>Walk</string>
+			<key>duration</key>
+			<integer>5</integer>
+		</dict>
+		<key>intervals</key>
+		<dict>
+			<key>repeats</key>
+			<integer>5</integer>
+			<key>phases</key>
+			<array>
+				<dict>
+					<key>activity</key>
+					<string>Jog</string>
+					<key>duration</key>
+					<integer>5</integer>
+				</dict>
+				<dict>
+					<key>activity</key>
+					<string>Walk</string>
+					<key>duration</key>
+					<integer>2</integer>
+				</dict>
+			</array>
+		</dict>
+		<key>cooldown</key>
+		<dict>
+			<key>activity</key>
+			<string>Walk</string>
+			<key>duration</key>
+			<integer>5</integer>
+		</dict>
+	</dict>
+	<dict>
+		<key>description</key>
+		<array>
+			<string>Brisk 5-minute warm-up walk</string>
+			<string>Alternate 6 minutes of jogging and 2 minutes of walking.</string>
+			<string>Repeat 4 times for a total of 32 minutes</string>
+			<string>Followed by a 5-minute cool down</string>
+		</array>
+		<key>warmup</key>
+		<dict>
+			<key>activity</key>
+			<string>Walk</string>
+			<key>duration</key>
+			<integer>5</integer>
+		</dict>
+		<key>intervals</key>
+		<dict>
+			<key>repeats</key>
+			<integer>4</integer>
+			<key>phases</key>
+			<array>
+				<dict>
+					<key>activity</key>
+					<string>Jog</string>
+					<key>duration</key>
+					<integer>6</integer>
+				</dict>
+				<dict>
+					<key>activity</key>
+					<string>Walk</string>
+					<key>duration</key>
+					<integer>2</integer>
+				</dict>
+			</array>
+		</dict>
+		<key>cooldown</key>
+		<dict>
+			<key>activity</key>
+			<string>Walk</string>
+			<key>duration</key>
+			<integer>5</integer>
+		</dict>
+	</dict>
+	<dict>
+		<key>description</key>
+		<array>
+			<string>Brisk 5-minute warm-up walk</string>
+			<string>Alternate 5 minutes of jogging and 2 minutes of walking.</string>
+			<string>Repeat 5 times for a total of 35 minutes</string>
+			<string>Followed by a 5-minute cool down</string>
+		</array>
+		<key>warmup</key>
+		<dict>
+			<key>activity</key>
+			<string>Walk</string>
+			<key>duration</key>
+			<integer>5</integer>
+		</dict>
+		<key>intervals</key>
+		<dict>
+			<key>repeats</key>
+			<integer>5</integer>
+			<key>phases</key>
+			<array>
+				<dict>
+					<key>activity</key>
+					<string>Jog</string>
+					<key>duration</key>
+					<integer>5</integer>
+				</dict>
+				<dict>
+					<key>activity</key>
+					<string>Walk</string>
+					<key>duration</key>
+					<integer>2</integer>
+				</dict>
+			</array>
+		</dict>
+		<key>cooldown</key>
+		<dict>
+			<key>activity</key>
+			<string>Walk</string>
+			<key>duration</key>
+			<integer>5</integer>
+		</dict>
+	</dict>
+</array>
+</plist>

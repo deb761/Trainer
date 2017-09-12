@@ -8,10 +8,14 @@
 
 import UIKit
 import AudioToolbox
+import UserNotifications
 
 class ViewController: UIViewController {
 
-    var workout:[String:AnyObject] = [:]
+    var isGrantedNotificationAccess = false
+    var workouts:[Workout] = []
+    var currentWorkout:Workout?
+    
     // outlets to display elements
     @IBOutlet weak var lblDuration: UILabel!
     @IBOutlet weak var lblWarmup: UILabel!
@@ -27,82 +31,102 @@ class ViewController: UIViewController {
     
     // time tracking parameters
     var timer:Timer = Timer()
-    var duration:TimeInterval = TimeInterval(0)
-    var startTime:Date?
-    var endTime:Date?
-    var elapsed:TimeInterval = TimeInterval(0)
-    var ttg:TimeInterval = TimeInterval(0)
-    var phaseNum:Int = 0
-    var phases:[Phase] = []
-    var phase:Phase?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) {
+            (granted, error) in
+            self.isGrantedNotificationAccess = granted
+            if !granted {
+                // TODO add alert to complain to user
+            }
+        }
+
         self.readPlist()
-        initWorkout()
+        currentWorkout = workouts[0]
+        fillDescription(currentWorkout!)
+        updateLabels()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // Read the plist for this project and fill in the settings
     func readPlist() {
+        var workoutDefs:[[String:AnyObject]] = []
         var format = PropertyListSerialization.PropertyListFormat.xml //format of the property list
-        let plistPath:String? = Bundle.main.path(forResource: "workout", ofType: "plist")!
+        let plistPath:String? = Bundle.main.path(forResource: "workouts", ofType: "plist")!
         let plistXML = FileManager.default.contents(atPath: plistPath!)!
         do {
-            workout = try PropertyListSerialization.propertyList(from: plistXML, options: .mutableContainersAndLeaves, format: &format)
-                as! [String:AnyObject]
-            phases.append(Phase(definition: workout["warmup"] as! [String : Any]))
-            duration = phases[0].duration
-            for _ in 1 ... (workout["intervals"]!["repeats"] as! Int) {
-                for phase in workout["intervals"]!["phases"] as! [[String : Any]] {
-                    let interval = Phase(definition: phase)
-                    phases.append(interval)
-                    duration += interval.duration
-                }
+            workoutDefs = try PropertyListSerialization.propertyList(from: plistXML, options: .mutableContainersAndLeaves, format: &format)
+                as! [[String:AnyObject]]
+            for def in workoutDefs {
+                workouts.append(Workout(workout: def))
             }
-            let cooldown = Phase(definition: workout["cooldown"] as! [String : Any])
-            phases.append(cooldown)
-            duration += cooldown.duration
-            let description = workout["description"] as! [String]
-            lblWarmup.text = description[0]
-            lblInterval.text = description[1]
-            lblRepeats.text = description[2]
-            lblCooldown.text = description[3]
-            lblDuration.text = "\(Int(duration / 60.0))"
         }
         catch {
             print("Error reading plist: \(error), format: \(format)")
         }
     }
-    // Initialize the workout
-    func initWorkout() {
-        phaseNum = 0
-        phase = phases[phaseNum]
-        ttg = duration
-        elapsed = TimeInterval(0)
-        updateLabels()
+    // Fill in the workout description
+    func fillDescription(_ workout:Workout) {
+        lblDuration.text = "\(Int(workout.duration) / Phase.secondsPerMinute)"
+        lblWarmup.text = workout.description[0]
+        lblInterval.text = workout.description[1]
+        lblRepeats.text = workout.description[2]
+        lblCooldown.text = workout.description[3]
     }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // Create notification content
+    func createContent(step:Phase) -> UNMutableNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = step.activity
+        content.body = step.duration.format()!
+        return content
+    }
+    // Create the notifications for the workout
+    func createNotifications(_ workout:Workout) {
+        for phaseNum in 1...workout.phases.count - 1 {
+            let phase = workout.phases[phaseNum]
+            let content = createContent(step: phase)
+            print("\(workout.phases[phaseNum - 1].endTime!.timeIntervalSinceNow)")
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: workout.phases[phaseNum - 1].endTime!.timeIntervalSinceNow, repeats: false)
+            addNotification(trigger: trigger, content: content, identifier: "Phase \(phaseNum)")
+        }
+        let content = UNMutableNotificationContent()
+        content.title = "Finished!"
+        content.body = "Workout over"
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: workout.endTime!.timeIntervalSinceNow, repeats: false)
+        addNotification(trigger: trigger, content: content, identifier: "Test")
+
+        let content1 = UNMutableNotificationContent()
+        content1.title = "Started!"
+        content1.body = "Workout started"
+        let trigger1 = UNTimeIntervalNotificationTrigger(timeInterval: 15.0, repeats: false)
+        addNotification(trigger: trigger1, content: content1, identifier: "Test")
+    }
+    // Add notifications for the app
+    func addNotification(trigger:UNNotificationTrigger?, content:UNMutableNotificationContent, identifier:String) {
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) {
+            (error) in
+            if error != nil {
+                print("error adding notification:\(String(describing: error?.localizedDescription))")
+            }
+        }
+    }
+    @IBAction func showNotice(_ sender: Any) {
+        let nc = NotificationCenter.default
+        nc.post(name:Notification.Name(rawValue:"MyNotification"),
+                object: nil,
+                userInfo: ["message":"Hello there!", "date":Date()])
+    }
+    // Update the display and play the alert when the timer fires
     @objc func processTimer() {
         let now = Date()
-        if (now < endTime!) {
-            phase = phases[phaseNum]
-            if now >= phase!.endTime! {
-                phaseNum += 1
-                phase = phases[phaseNum]
-                phase!.Start()
-                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                AudioServicesPlayAlertSound(SystemSoundID(1005))
-            }
-            else {
-                phase!.Update()
-            }
-            ttg = endTime!.timeIntervalSinceNow
-            elapsed = duration - ttg
+        if (now < currentWorkout!.endTime!) {
+            currentWorkout!.update()
             updateLabels()
         } else {
             timer.invalidate()
@@ -112,40 +136,43 @@ class ViewController: UIViewController {
     }
     // Update the labels
     func updateLabels() {
-        lblTimeToGo.text = ttg.format()
-        lblTimeElapsed.text = elapsed.format()
-        lblActivity.text = phase!.activity
-        lblIntervalTimeToGo.text = phase!.ttg.format()
+        lblTimeToGo.text = currentWorkout!.ttg.format()
+        lblTimeElapsed.text = currentWorkout!.elapsed.format()
+        lblActivity.text = currentWorkout!.currentPhase.activity
+        lblIntervalTimeToGo.text = currentWorkout!.currentPhase.ttg.format()
     }
     // Start or pause the workout
     @IBAction func controlWorkout(_ sender: Any) {
-        if !timer.isValid {
-            if startTime == nil {
-                startTime = Date()
-                phase!.Start()
+        if let workout = currentWorkout {
+            if !timer.isValid {
+                if workout.startTime == nil {
+                    workout.start()
+                    if isGrantedNotificationAccess {
+                        createNotifications(workout)
+                    }
+                }
+                else {
+                    workout.resume()
+                }
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self,
+                                             selector: #selector(ViewController.processTimer),
+                                             userInfo: nil, repeats: true)
+                timer.fire()
+                btnStart.setTitle("Pause", for: .normal)
             }
             else {
-                phase!.Resume()
+                btnStart.setTitle("Resume", for: .normal)
+                timer.invalidate()
+                workout.pause()
             }
-            endTime = Date() + ttg
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self,
-                                         selector: #selector(ViewController.processTimer),
-                                         userInfo: nil, repeats: true)
-            timer.fire()
-            btnStart.setTitle("Pause", for: .normal)
         }
-        else {
-            btnStart.setTitle("Resume", for: .normal)
-            timer.invalidate()
-        }
-        
     }
     // Restart the workout
     @IBAction func resetTime(_ sender: Any) {
-        initWorkout()
-        phases[0].Start()
-        endTime = Date() + ttg
-        phase!.Start()
+        if let workout = currentWorkout {
+            workout.start()
+            createNotifications(workout)
+        }
     }
 }
 
