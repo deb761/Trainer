@@ -2,7 +2,6 @@
 Guide you through an interval workout.
 
 ![Select Workout screen](images/select-workout.png)
-
 ![Workout screen](images/workout.png)
 
 This application allows the user to define workouts with activities for varying time periods, and then tracks
