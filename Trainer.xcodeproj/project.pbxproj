@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		870193111F6722750095D847 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870193101F6722750095D847 /* Workout.swift */; };
 		87A4CF301F6AF8FE004D49D1 /* WorkoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */; };
+		87A4CF321F6B15F3004D49D1 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A4CF311F6B15F3004D49D1 /* WorkoutCell.swift */; };
 		87AD14831F644852009D778A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14821F644852009D778A /* AppDelegate.swift */; };
 		87AD14851F644852009D778A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14841F644852009D778A /* ViewController.swift */; };
 		87AD14881F644852009D778A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AD14861F644852009D778A /* Main.storyboard */; };
@@ -20,6 +21,8 @@
 		87AD14B41F645AE2009D778A /* workouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87AD14B31F645AE2009D778A /* workouts.plist */; };
 		87AD14B61F64788A009D778A /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14B51F64788A009D778A /* Phase.swift */; };
 		87AD14B81F648267009D778A /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14B71F648267009D778A /* TimeInterval.swift */; };
+		87FD010A1F6B32830076D6E4 /* PhasesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD01091F6B32830076D6E4 /* PhasesViewController.swift */; };
+		87FD010C1F6B34AC0076D6E4 /* PhaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD010B1F6B34AC0076D6E4 /* PhaseCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,7 @@
 /* Begin PBXFileReference section */
 		870193101F6722750095D847 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsViewController.swift; sourceTree = "<group>"; };
+		87A4CF311F6B15F3004D49D1 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
 		87AD147F1F644852009D778A /* Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AD14821F644852009D778A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		87AD14841F644852009D778A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 		87AD14B31F645AE2009D778A /* workouts.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = workouts.plist; sourceTree = "<group>"; };
 		87AD14B51F64788A009D778A /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
 		87AD14B71F648267009D778A /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
+		87FD01091F6B32830076D6E4 /* PhasesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesViewController.swift; sourceTree = "<group>"; };
+		87FD010B1F6B34AC0076D6E4 /* PhaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,9 @@
 				87AD14B71F648267009D778A /* TimeInterval.swift */,
 				870193101F6722750095D847 /* Workout.swift */,
 				87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */,
+				87A4CF311F6B15F3004D49D1 /* WorkoutCell.swift */,
+				87FD01091F6B32830076D6E4 /* PhasesViewController.swift */,
+				87FD010B1F6B34AC0076D6E4 /* PhaseCell.swift */,
 			);
 			path = Trainer;
 			sourceTree = "<group>";
@@ -280,11 +289,14 @@
 			files = (
 				87AD148B1F644852009D778A /* Trainer.xcdatamodeld in Sources */,
 				87A4CF301F6AF8FE004D49D1 /* WorkoutsViewController.swift in Sources */,
+				87FD010C1F6B34AC0076D6E4 /* PhaseCell.swift in Sources */,
 				87AD14B81F648267009D778A /* TimeInterval.swift in Sources */,
 				87AD14851F644852009D778A /* ViewController.swift in Sources */,
 				87AD14831F644852009D778A /* AppDelegate.swift in Sources */,
 				87AD14B61F64788A009D778A /* Phase.swift in Sources */,
 				870193111F6722750095D847 /* Workout.swift in Sources */,
+				87A4CF321F6B15F3004D49D1 /* WorkoutCell.swift in Sources */,
+				87FD010A1F6B32830076D6E4 /* PhasesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
