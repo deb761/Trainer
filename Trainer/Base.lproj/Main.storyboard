@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3YO-lf-6IO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,10 +9,74 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Workouts View Controller-->
+        <scene sceneID="v1h-NL-Mex">
+            <objects>
+                <tableViewController id="OBL-jJ-6o3" userLabel="Workouts View Controller" customClass="WorkoutsViewController" customModule="Trainer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ieQ-SN-F2g">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="workout cell" textLabel="C1D-dX-TxP" detailTextLabel="kFl-nI-zTJ" style="IBUITableViewCellStyleValue1" id="GkO-cN-Oic">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GkO-cN-Oic" id="md7-BH-GS3">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="C1D-dX-TxP">
+                                            <rect key="frame" x="16" y="12" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kFl-nI-zTJ">
+                                            <rect key="frame" x="316" y="12" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="VeB-TU-lcT"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="OBL-jJ-6o3" id="gvy-VW-fnc"/>
+                            <outlet property="delegate" destination="OBL-jJ-6o3" id="QVn-sJ-9cD"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Workouts" id="dMc-n5-wW2"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AEy-wz-ate" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-695" y="139"/>
+        </scene>
+        <!--Workouts-->
+        <scene sceneID="PVT-EB-0Pv">
+            <objects>
+                <navigationController title="Workouts" id="3YO-lf-6IO" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="g3h-Kh-tyl">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="OBL-jJ-6o3" kind="relationship" relationship="rootViewController" id="isZ-sD-O5d"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ziE-zx-Gnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1598" y="139"/>
+        </scene>
+        <!--Workout-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Trainer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Workout" id="BYZ-38-t0r" customClass="ViewController" customModule="Trainer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -21,24 +85,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lyd-rZ-5IF">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Trainer" id="tFz-CD-udN"/>
-                                </items>
-                            </navigationBar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67E-3U-dLG">
-                                <rect key="frame" x="0.0" y="563" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="nQ3-OT-aXn"/>
-                                    <barButtonItem title="Reset" id="NDk-le-2mf">
-                                        <connections>
-                                            <action selector="resetTime:" destination="BYZ-38-t0r" id="bnx-pV-P64"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="jp7-SK-NNZ"/>
-                                </items>
-                            </toolbar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ooh-3m-G3z">
                                 <rect key="frame" x="16" y="64" width="343" height="461"/>
                                 <subviews>
@@ -71,25 +117,25 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6dS-vD-9NH">
                                                 <rect key="frame" x="71.5" y="0.0" width="271.5" height="101"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Brisk 5-minute warm-up walk. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tby-p8-S6U" userLabel="Warm Up">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" text="Brisk 5-minute warm-up walk. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tby-p8-S6U" userLabel="Warm Up">
                                                         <rect key="frame" x="0.0" y="0.0" width="271.5" height="29"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Alternate 3 minute of jogging and 2 minutes of walking. " lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m58-Wr-skV" userLabel="Interval">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alternate 3 minute of jogging and 2 minutes of walking. " lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m58-Wr-skV" userLabel="Interval">
                                                         <rect key="frame" x="0.0" y="29" width="271.5" height="36"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Repeat 6 times for a total of 30 minutes." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZpQ-uK-nwh" userLabel="Repeats">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat 6 times for a total of 30 minutes." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZpQ-uK-nwh" userLabel="Repeats">
                                                         <rect key="frame" x="0.0" y="65" width="271.5" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Followed by a 5-minute cool down" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3b-q3-Pyx" userLabel="Cool Down">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Followed by a 5-minute cool down" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3b-q3-Pyx" userLabel="Cool Down">
                                                         <rect key="frame" x="0.0" y="83" width="271.5" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <nil key="textColor"/>
@@ -148,18 +194,30 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Lyd-rZ-5IF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0V1-Ev-XeJ"/>
-                            <constraint firstItem="Lyd-rZ-5IF" firstAttribute="trailing" secondItem="67E-3U-dLG" secondAttribute="trailing" id="0bS-cH-Ne0"/>
-                            <constraint firstItem="Lyd-rZ-5IF" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ASf-a8-thO"/>
-                            <constraint firstItem="Lyd-rZ-5IF" firstAttribute="leading" secondItem="67E-3U-dLG" secondAttribute="leading" id="Bc0-TF-NTN"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="67E-3U-dLG" secondAttribute="bottom" constant="16" id="D6q-oM-scI"/>
                             <constraint firstAttribute="trailing" secondItem="Ooh-3m-G3z" secondAttribute="trailing" constant="16" id="KH4-9C-TsC"/>
-                            <constraint firstItem="Lyd-rZ-5IF" firstAttribute="centerX" secondItem="Ooh-3m-G3z" secondAttribute="centerX" id="QIo-WE-1bf"/>
+                            <constraint firstItem="Ooh-3m-G3z" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="UZg-lp-bGj"/>
                             <constraint firstItem="Ooh-3m-G3z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="bRa-OM-wPz"/>
-                            <constraint firstItem="Ooh-3m-G3z" firstAttribute="top" secondItem="Lyd-rZ-5IF" secondAttribute="bottom" id="o9g-t4-h3f"/>
                         </constraints>
                     </view>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem title="Reset" id="jbV-HT-KFd">
+                            <connections>
+                                <action selector="resetTime:" destination="BYZ-38-t0r" id="yYs-GD-8zW"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Hdk-XT-62g"/>
+                        <barButtonItem title="Start" id="NDk-le-2mf" userLabel="Start">
+                            <connections>
+                                <action selector="resetTime:" destination="BYZ-38-t0r" id="bnx-pV-P64"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Qse-nv-P4V"/>
+                        <barButtonItem title="Edit" id="RG0-4I-U2D" userLabel="Edit">
+                            <connections>
+                                <action selector="resetTime:" destination="BYZ-38-t0r" id="a85-6g-TsP"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="btnStart" destination="oND-z5-2TH" id="5nk-bG-A9F"/>

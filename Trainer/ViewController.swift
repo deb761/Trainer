@@ -60,6 +60,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.isToolbarHidden = false
         // Do any additional setup after loading the view, typically from a nib.
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) {
             (granted, error) in

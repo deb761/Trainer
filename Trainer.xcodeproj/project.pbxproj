@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		870193111F6722750095D847 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870193101F6722750095D847 /* Workout.swift */; };
+		87A4CF301F6AF8FE004D49D1 /* WorkoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */; };
 		87AD14831F644852009D778A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14821F644852009D778A /* AppDelegate.swift */; };
 		87AD14851F644852009D778A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14841F644852009D778A /* ViewController.swift */; };
 		87AD14881F644852009D778A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AD14861F644852009D778A /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		870193101F6722750095D847 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsViewController.swift; sourceTree = "<group>"; };
 		87AD147F1F644852009D778A /* Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AD14821F644852009D778A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		87AD14841F644852009D778A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				87AD14B51F64788A009D778A /* Phase.swift */,
 				87AD14B71F648267009D778A /* TimeInterval.swift */,
 				870193101F6722750095D847 /* Workout.swift */,
+				87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */,
 			);
 			path = Trainer;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87AD148B1F644852009D778A /* Trainer.xcdatamodeld in Sources */,
+				87A4CF301F6AF8FE004D49D1 /* WorkoutsViewController.swift in Sources */,
 				87AD14B81F648267009D778A /* TimeInterval.swift in Sources */,
 				87AD14851F644852009D778A /* ViewController.swift in Sources */,
 				87AD14831F644852009D778A /* AppDelegate.swift in Sources */,
