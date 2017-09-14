@@ -74,7 +74,7 @@ class ViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let newActivity = NSEntityDescription.insertNewObject(forEntityName: "Activity", into: context)
-        newActivity.setValue("Walk", forKey: "name")
+        newActivity.setValue("Jog", forKey: "name")
         do {
             try context.save()
             print("Saved")

@@ -89,7 +89,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="sFy-VV-3KK"/>
                         <barButtonItem title="Add" id="D14-t0-1O2">
                             <connections>
-                                <segue destination="cgu-B3-gvf" kind="show" id="FWY-YG-pN4"/>
+                                <segue destination="cgu-B3-gvf" kind="show" identifier="add workout" id="FWY-YG-pN4"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -258,6 +258,7 @@
                         <barButtonItem title="Edit" id="RG0-4I-U2D" userLabel="Edit">
                             <connections>
                                 <action selector="resetTime:" destination="BYZ-38-t0r" id="a85-6g-TsP"/>
+                                <segue destination="cgu-B3-gvf" kind="show" identifier="edit workout" id="4KD-GA-Wrb"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -307,54 +308,29 @@
                                     <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="phase cell" rowHeight="68" id="fkU-3o-1rr" customClass="PhaseCell" customModule="Trainer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="phase cell" textLabel="hhN-ob-Q6T" detailTextLabel="rmX-Pi-XNn" rowHeight="68" style="IBUITableViewCellStyleValue1" id="fkU-3o-1rr" customClass="PhaseCell" customModule="Trainer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="375" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fkU-3o-1rr" id="Bgh-GM-xsB">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="67.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2X5-2m-gWn">
-                                            <rect key="frame" x="8" y="8" width="359" height="51.5"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z5l-HB-GKt">
-                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="20.5"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Warmup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mkh-HE-JjL" userLabel="Activity">
-                                                            <rect key="frame" x="0.0" y="0.0" width="323.5" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="5:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sk4-sW-dbx" userLabel="Duration">
-                                                            <rect key="frame" x="323.5" y="0.0" width="35.5" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brisk walk" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftO-ZZ-uhz" userLabel="Description">
-                                                    <rect key="frame" x="0.0" y="20.5" width="359" height="31"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </stackView>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hhN-ob-Q6T">
+                                            <rect key="frame" x="16" y="24" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rmX-Pi-XNn">
+                                            <rect key="frame" x="316" y="24" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="2X5-2m-gWn" secondAttribute="trailing" id="02M-Y0-Ttg"/>
-                                        <constraint firstItem="2X5-2m-gWn" firstAttribute="top" secondItem="Bgh-GM-xsB" secondAttribute="topMargin" id="VmY-Vm-sXF"/>
-                                        <constraint firstItem="2X5-2m-gWn" firstAttribute="leading" secondItem="Bgh-GM-xsB" secondAttribute="leadingMargin" id="b0T-wr-XIj"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="2X5-2m-gWn" secondAttribute="bottom" id="hu2-KP-Wjq"/>
-                                    </constraints>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="lblActivity" destination="Mkh-HE-JjL" id="caj-O1-N7Y"/>
-                                    <outlet property="lblDescription" destination="ftO-ZZ-uhz" id="4Sp-vW-Xpu"/>
-                                    <outlet property="lblDuration" destination="Sk4-sW-dbx" id="lAJ-wb-dfV"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -373,4 +349,7 @@
             <point key="canvasLocation" x="-167.19999999999999" y="846.9265367316342"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="4KD-GA-Wrb"/>
+    </inferredMetricsTieBreakers>
 </document>

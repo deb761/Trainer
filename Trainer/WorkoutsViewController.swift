@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 class WorkoutsViewController: UITableViewController {
 
-     override func viewDidLoad() {
+    var workouts:[WorkoutData] = []
+    // connect to core data
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -20,6 +25,16 @@ class WorkoutsViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         navigationController?.isToolbarHidden = false
+        
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkoutData")
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            workouts = try context.fetch(request) as! [WorkoutData]
+        } catch {
+            print("Couldn't fetch results")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,14 +107,38 @@ class WorkoutsViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
+        let pvc = segue.destination as! PhasesViewController
         // Pass the selected object to the new view controller.
+        if segue.identifier == "add workout" {
+            let context = appDelegate.persistentContainer.viewContext
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Activity")
+            request.returnsObjectsAsFaults = false
+            request.predicate = NSPredicate(format: "name == %@", "Walk")
+
+            do {
+                let results = try context.fetch(request) as! [Activity]
+                let walk = results[0]
+                pvc.workout = NSEntityDescription.insertNewObject(forEntityName: "WorkoutData", into: context) as! WorkoutData
+
+                pvc.workout.warmup = easyPhase(context: context, walk: walk)
+                pvc.workout.cooldown = easyPhase(context: context, walk: walk)
+            } catch {
+                print("Couldn't fetch results")
+            }
+        }
     }
-    */
+    
+    func easyPhase(context:NSManagedObjectContext, walk:Activity) -> PhaseData {
+        let phase = NSEntityDescription.insertNewObject(forEntityName: "PhaseData", into: context) as! PhaseData
+        phase.activity = walk
+        phase.duration = 300.0
+        return phase
+    }
 
 }

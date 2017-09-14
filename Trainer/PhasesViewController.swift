@@ -10,6 +10,9 @@ import UIKit
 
 class PhasesViewController: UITableViewController {
 
+    // This is set by the view sequing to this view
+    var workout:WorkoutData!
+    
     let segments:[String] = ["Warmup", "Workout", "Cooldown"]
     
     override func viewDidLoad() {
@@ -38,7 +41,12 @@ class PhasesViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        switch (section) {
+        case 1:
+            return (workout?.phases?.count)!
+        default:
+            return 1
+        }
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -52,7 +60,26 @@ class PhasesViewController: UITableViewController {
 
         // Configure the cell...
         cell.accessoryType = .disclosureIndicator
-
+        var phase:PhaseData?
+        
+        switch (indexPath.section) {
+        case 0:
+            phase = workout?.warmup
+        case 2:
+            phase = workout?.cooldown
+        default:
+            phase = workout?.phases?[indexPath.row] as? PhaseData
+        }
+        
+        if let phase = phase {
+            cell.detailTextLabel?.text = (phase.duration as? TimeInterval)?.format()
+            cell.textLabel?.text = phase.activity?.name
+        }
+        else {
+            cell.detailTextLabel?.text = "5:00"
+            cell.textLabel?.text = "Brisk Walk \(indexPath.section), \(indexPath.row)"
+        }
+        
         return cell
     }
     
