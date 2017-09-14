@@ -10,9 +10,9 @@ the workout and gives notice to change activities.  For example:
 1. Warmup walk for 5 minutes
 2. Repeat 5 times:
 
-  a. Jog 5 minutes
+    1. Jog 5 minutes
 
-  b. Walk 2 minutes
+    2. Walk 2 minutes
 
 3. Cooldown walk for 5 minutes
 
