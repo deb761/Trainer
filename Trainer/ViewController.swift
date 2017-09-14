@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import CoreData
 import UserNotifications
 
 class ViewController: UIViewController {
@@ -67,7 +68,26 @@ class ViewController: UIViewController {
                 // TODO add alert to complain to user
             }
         }
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let newActivity = NSEntityDescription.insertNewObject(forEntityName: "Activity", into: context)
+        newActivity.setValue("Walk", forKey: "name")
+        do {
+            try context.save()
+            print("Saved")
+        } catch {
+            print("There was an error")
+        }
 
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Activity")
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let results = try context.fetch(request)
+        } catch {
+            print("Couldn't fetch results")
+        }
         self.readPlist()
         currentWorkout = workouts[workoutNum]
         fillDescription(currentWorkout!)

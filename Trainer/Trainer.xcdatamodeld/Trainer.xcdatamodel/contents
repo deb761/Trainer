@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13233.4" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Activity" representedClassName="Activity" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Intervals" representedClassName="Intervals" parentEntity="PhaseData" syncable="YES" codeGenerationType="class">
+        <attribute name="repeats" attributeType="Integer 32" minValueString="1" maxValueString="10" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="phases" toMany="YES" minCount="2" maxCount="20" deletionRule="Nullify" ordered="YES" destinationEntity="PhaseData" syncable="YES"/>
+    </entity>
+    <entity name="PhaseData" representedClassName="PhaseData" syncable="YES" codeGenerationType="class">
+        <attribute name="duration" optional="YES" attributeType="Float" minValueString="30" defaultValueString="60" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" syncable="YES"/>
+    </entity>
+    <entity name="WorkoutData" representedClassName="WorkoutData" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="cooldown" maxCount="1" deletionRule="Nullify" destinationEntity="PhaseData" syncable="YES"/>
+        <relationship name="phases" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="PhaseData" syncable="YES"/>
+        <relationship name="warmup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PhaseData" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="WorkoutData" positionX="-281" positionY="-240" width="128" height="103"/>
+        <element name="PhaseData" positionX="16" positionY="-117" width="128" height="73"/>
+        <element name="Activity" positionX="-63" positionY="63" width="128" height="58"/>
+        <element name="Intervals" positionX="-108" positionY="-54" width="128" height="75"/>
+    </elements>
 </model>
