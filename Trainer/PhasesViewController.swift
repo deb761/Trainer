@@ -60,7 +60,7 @@ class PhasesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "phaseHeader") ?? UITableViewHeaderFooterView(reuseIdentifier: "phaseHeader")
         
-        cell.textLabel?.text = "\(Section(rawValue: section) ?? Section.name)"
+        cell.textLabel?.text = "\(Section(rawValue: section) ?? Section.name)".capitalized
         return cell
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
