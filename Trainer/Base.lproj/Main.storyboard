@@ -36,8 +36,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZC-nx-mZs">
-                                                    <rect key="frame" x="0.0" y="28.5" width="88" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZC-nx-mZs">
+                                                    <rect key="frame" x="0.0" y="28.5" width="0.0" height="20.5"/>
                                                     <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -76,7 +76,7 @@
                                     <outlet property="lblDuration" destination="YkC-g6-N7I" id="Xnp-4e-FI0"/>
                                     <outlet property="lblLast" destination="KyX-Wh-A9g" id="MYn-Eu-C0m"/>
                                     <outlet property="lblTitle" destination="K3j-GD-1t2" id="VUE-1t-SPQ"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="show workout" id="VeB-TU-lcT"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="showWorkout" id="VeB-TU-lcT"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -89,7 +89,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="sFy-VV-3KK"/>
                         <barButtonItem title="Add" id="D14-t0-1O2">
                             <connections>
-                                <segue destination="cgu-B3-gvf" kind="show" identifier="add workout" id="FWY-YG-pN4"/>
+                                <segue destination="cgu-B3-gvf" kind="show" identifier="addWorkout" id="qzm-cL-FoE"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -135,57 +135,34 @@
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="101"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-zZ-lcY">
-                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="101"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="168.5" height="101"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LcY-8F-nrG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="65.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="168.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JoO-iW-12a" userLabel="Lbl Duration">
-                                                        <rect key="frame" x="0.0" y="20.5" width="65.5" height="60"/>
+                                                        <rect key="frame" x="0.0" y="20.5" width="168.5" height="60"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minutes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nME-3K-Hr2">
-                                                        <rect key="frame" x="0.0" y="80.5" width="65.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="80.5" width="168.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6dS-vD-9NH">
-                                                <rect key="frame" x="71.5" y="0.0" width="271.5" height="101"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" text="Brisk 5-minute warm-up walk. " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tby-p8-S6U" userLabel="Warm Up">
-                                                        <rect key="frame" x="0.0" y="0.0" width="271.5" height="29"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alternate 3 minute of jogging and 2 minutes of walking. " lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m58-Wr-skV" userLabel="Interval">
-                                                        <rect key="frame" x="0.0" y="29" width="271.5" height="36"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat 6 times for a total of 30 minutes." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZpQ-uK-nwh" userLabel="Repeats">
-                                                        <rect key="frame" x="0.0" y="65" width="271.5" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Followed by a 5-minute cool down" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3b-q3-Pyx" userLabel="Cool Down">
-                                                        <rect key="frame" x="0.0" y="83" width="271.5" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" text="Brisk 5-minute warm-up walk. " lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tby-p8-S6U" userLabel="Description">
+                                                <rect key="frame" x="174.5" y="0.0" width="168.5" height="101"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="240" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TK2-JJ-bob" userLabel="Lbl Time Elapsed">
@@ -258,7 +235,7 @@
                         <barButtonItem title="Edit" id="RG0-4I-U2D" userLabel="Edit">
                             <connections>
                                 <action selector="resetTime:" destination="BYZ-38-t0r" id="a85-6g-TsP"/>
-                                <segue destination="cgu-B3-gvf" kind="show" identifier="edit workout" id="4KD-GA-Wrb"/>
+                                <segue destination="cgu-B3-gvf" kind="show" identifier="editWorkout" id="4KD-GA-Wrb"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -267,14 +244,11 @@
                     <connections>
                         <outlet property="btnStart" destination="oND-z5-2TH" id="5nk-bG-A9F"/>
                         <outlet property="lblActivity" destination="6Pn-u2-9WU" id="idT-sw-MgH"/>
-                        <outlet property="lblCooldown" destination="q3b-q3-Pyx" id="jEI-gZ-J26"/>
+                        <outlet property="lblDescription" destination="Tby-p8-S6U" id="O8g-wM-6yW"/>
                         <outlet property="lblDuration" destination="JoO-iW-12a" id="OWi-St-ISV"/>
-                        <outlet property="lblInterval" destination="m58-Wr-skV" id="B1n-GA-LTq"/>
                         <outlet property="lblIntervalTimeToGo" destination="CM9-5q-Ub3" id="vwP-bV-uzQ"/>
-                        <outlet property="lblRepeats" destination="ZpQ-uK-nwh" id="4BO-Fu-Njk"/>
                         <outlet property="lblTimeElapsed" destination="TK2-JJ-bob" id="syb-GK-1Lo"/>
                         <outlet property="lblTimeToGo" destination="qJL-aM-RDd" id="EPv-Mq-CgH"/>
-                        <outlet property="lblWarmup" destination="Tby-p8-S6U" id="1E2-bF-IPZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -285,31 +259,13 @@
         <scene sceneID="ecg-at-ed1">
             <objects>
                 <tableViewController title="Workout Phases" id="cgu-B3-gvf" customClass="PhasesViewController" customModule="Trainer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="75C-uo-E5x">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="75C-uo-E5x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="segment cell" textLabel="IW1-eA-hjA" style="IBUITableViewCellStyleDefault" id="ff0-48-VGQ">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ff0-48-VGQ" id="3a9-GH-htB">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IW1-eA-hjA">
-                                            <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="phase cell" textLabel="hhN-ob-Q6T" detailTextLabel="rmX-Pi-XNn" rowHeight="68" style="IBUITableViewCellStyleValue1" id="fkU-3o-1rr" customClass="PhaseCell" customModule="Trainer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="68"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="phaseCell" textLabel="hhN-ob-Q6T" detailTextLabel="rmX-Pi-XNn" rowHeight="68" style="IBUITableViewCellStyleValue1" id="fkU-3o-1rr">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fkU-3o-1rr" id="Bgh-GM-xsB">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="67.5"/>
@@ -340,16 +296,189 @@
                     </tableView>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="dcw-NF-E29"/>
-                        <barButtonItem title="Add Phase" id="uDF-7d-bfi"/>
+                        <barButtonItem title="Add Phase" id="uDF-7d-bfi">
+                            <connections>
+                                <action selector="addPhasePressed:" destination="cgu-B3-gvf" id="C7f-zD-fyy"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="OpN-jE-fby" kind="show" identifier="addIntervals" id="1uD-z6-2xO"/>
+                        <segue destination="OpN-jE-fby" kind="show" identifier="editIntervals" id="926-xb-kQ0"/>
+                        <segue destination="voA-61-pU2" kind="show" identifier="addPhase" id="Rhs-sk-m3W"/>
+                        <segue destination="voA-61-pU2" kind="show" identifier="editPhase" id="2gl-bI-HEO"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OhO-0F-SS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-167.19999999999999" y="846.9265367316342"/>
         </scene>
+        <!--Phase-->
+        <scene sceneID="hV7-Jv-Z7T">
+            <objects>
+                <tableViewController title="Phase" id="voA-61-pU2" customClass="PhaseViewController" customModule="Trainer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9ZI-9X-3t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activityCell" textLabel="3sJ-eN-ouG" style="IBUITableViewCellStyleDefault" id="qlo-dG-t2b">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qlo-dG-t2b" id="yGA-hs-8cC">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3sJ-eN-ouG">
+                                            <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="durationCell" rowHeight="117" id="8Ku-Eu-694" customClass="DurationPickerCell" customModule="Trainer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="117"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Ku-Eu-694" id="WAs-7q-HL7">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="116.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" countDownDuration="300" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gAb-mP-pPh">
+                                            <rect key="frame" x="0.0" y="-60" width="375" height="162"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <date key="date" timeIntervalSinceReferenceDate="527143362.68452001">
+                                                <!--2017-09-15 04:42:42 +0000-->
+                                            </date>
+                                            <connections>
+                                                <action selector="timeChanged:" destination="voA-61-pU2" eventType="valueChanged" id="wkt-1x-yXX"/>
+                                            </connections>
+                                        </datePicker>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="timePicker" destination="gAb-mP-pPh" id="u9p-SC-30j"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="voA-61-pU2" id="e7l-Db-625"/>
+                            <outlet property="delegate" destination="voA-61-pU2" id="q0a-Se-u5e"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="4ff-PT-x3d"/>
+                        <barButtonItem title="Add Activity" id="4ii-Jj-mii">
+                            <connections>
+                                <action selector="addActivity:" destination="voA-61-pU2" id="RZp-VI-7NS"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Hd-YD-pka" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1479" y="847"/>
+        </scene>
+        <!--Interval Phases-->
+        <scene sceneID="3Ar-SU-dg3">
+            <objects>
+                <tableViewController title="Interval Phases" id="OpN-jE-fby" userLabel="Interval Phases" customClass="IntervalsViewController" customModule="Trainer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Dsf-mo-8ED">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="phaseCell" textLabel="2pu-Wv-3Iq" detailTextLabel="s7R-cl-MFt" rowHeight="68" style="IBUITableViewCellStyleValue1" id="SLz-Mk-Tgx" customClass="PhaseCell" customModule="Trainer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="68"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SLz-Mk-Tgx" id="BXm-5y-Kf1">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="67.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2pu-Wv-3Iq">
+                                            <rect key="frame" x="16" y="24" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="s7R-cl-MFt">
+                                            <rect key="frame" x="316" y="24" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="voA-61-pU2" kind="show" identifier="editPhase" id="3aZ-iF-C5K"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="repeatCell" id="hnS-bT-lwI" customClass="RepeatCell" customModule="Trainer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="123.5" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hnS-bT-lwI" id="WGe-1W-dr0">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAi-Sz-7eD">
+                                            <rect key="frame" x="8" y="8" width="42" height="27.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="42" id="fRb-uA-rlm"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="lKE-88-4Hv">
+                                            <rect key="frame" x="273" y="8" width="94" height="29"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="94" id="XP3-1p-Uob"/>
+                                            </constraints>
+                                        </stepper>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="HAi-Sz-7eD" secondAttribute="bottom" id="2i9-Vq-AHH"/>
+                                        <constraint firstItem="lKE-88-4Hv" firstAttribute="trailing" secondItem="WGe-1W-dr0" secondAttribute="trailingMargin" id="IdO-Sx-YVe"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="lKE-88-4Hv" secondAttribute="bottom" id="fW2-my-3VK"/>
+                                        <constraint firstItem="HAi-Sz-7eD" firstAttribute="top" secondItem="WGe-1W-dr0" secondAttribute="topMargin" id="qfD-Kr-sCi"/>
+                                        <constraint firstItem="HAi-Sz-7eD" firstAttribute="leading" secondItem="WGe-1W-dr0" secondAttribute="leadingMargin" id="sxF-3Z-McW"/>
+                                        <constraint firstItem="lKE-88-4Hv" firstAttribute="top" secondItem="WGe-1W-dr0" secondAttribute="topMargin" id="uSi-0w-0Ht"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="lblRepeats" destination="HAi-Sz-7eD" id="ih8-RP-8JY"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="OpN-jE-fby" id="fem-4k-Nzr"/>
+                            <outlet property="delegate" destination="OpN-jE-fby" id="oAb-fG-ij0"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="LkF-cr-4ht"/>
+                        <barButtonItem title="Add Phase" id="9ln-Ug-9eL">
+                            <connections>
+                                <segue destination="voA-61-pU2" kind="show" identifier="addPhase" id="Vyd-1r-CAQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PZq-lW-cWh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="271" y="1648"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4KD-GA-Wrb"/>
+        <segue reference="926-xb-kQ0"/>
+        <segue reference="3aZ-iF-C5K"/>
+        <segue reference="qzm-cL-FoE"/>
     </inferredMetricsTieBreakers>
 </document>

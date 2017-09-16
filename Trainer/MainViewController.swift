@@ -14,15 +14,12 @@ import UserNotifications
 class ViewController: UIViewController {
 
     var isGrantedNotificationAccess = false
-    var workouts:[Workout] = []
     var currentWorkout:Workout?
+    var workoutData:WorkoutData?
     
     // outlets to display elements
     @IBOutlet weak var lblDuration: UILabel!
-    @IBOutlet weak var lblWarmup: UILabel!
-    @IBOutlet weak var lblInterval: UILabel!
-    @IBOutlet weak var lblRepeats: UILabel!
-    @IBOutlet weak var lblCooldown: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var btnStart: UIButton!
     
     @IBOutlet weak var lblTimeElapsed: UILabel!
@@ -70,56 +67,20 @@ class ViewController: UIViewController {
                 // TODO add alert to complain to user
             }
         }
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let newActivity = NSEntityDescription.insertNewObject(forEntityName: "Activity", into: context)
-        newActivity.setValue("Jog", forKey: "name")
-        do {
-            try context.save()
-            print("Saved")
-        } catch {
-            print("There was an error")
-        }
-
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Activity")
-        request.returnsObjectsAsFaults = false
-        
-        do {
-            let results = try context.fetch(request)
-        } catch {
-            print("Couldn't fetch results")
-        }
-        self.readPlist()
-        currentWorkout = workouts[workoutNum]
-        fillDescription(currentWorkout!)
+        fillLabels()
+    }
+    
+    func fillLabels() {
+        currentWorkout = Workout(data:workoutData!)
+        lblDescription.text = currentWorkout?.description
+        lblDuration.text = "\(Int((currentWorkout?.duration)!) / TimeInterval.secondsPerMinute)"
         updateLabels()
+
     }
-    // Read the plist for the workouts and fill in the settings
-    func readPlist() {
-        var workoutDefs:[[String:AnyObject]] = []
-        var format = PropertyListSerialization.PropertyListFormat.xml //format of the property list
-        let plistPath:String? = Bundle.main.path(forResource: "workouts", ofType: "plist")!
-        let plistXML = FileManager.default.contents(atPath: plistPath!)!
-        do {
-            workoutDefs = try PropertyListSerialization.propertyList(from: plistXML, options: .mutableContainersAndLeaves, format: &format)
-                as! [[String:AnyObject]]
-            for def in workoutDefs {
-                workouts.append(Workout(workout: def))
-            }
-        }
-        catch {
-            print("Error reading plist: \(error), format: \(format)")
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        fillLabels()
     }
-    // Fill in the workout description
-    func fillDescription(_ workout:Workout) {
-        lblDuration.text = "\(Int(workout.duration) / Phase.secondsPerMinute)"
-        lblWarmup.text = workout.description[0]
-        lblInterval.text = workout.description[1]
-        lblRepeats.text = workout.description[2]
-        lblCooldown.text = workout.description[3]
-    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -130,6 +91,8 @@ class ViewController: UIViewController {
         let content = UNMutableNotificationContent()
         content.title = step.activity
         content.body = step.duration.format()!
+        //content.sound = UNNotificationSound.default()
+        content.sound = UNNotificationSound(named: "clong.caf")
         return content
     }
     // Create the notifications for the workout
@@ -219,6 +182,11 @@ class ViewController: UIViewController {
             workout.start()
             createNotifications(workout)
         }
+    }
+    // Prepare to edit the workout
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let pvc = segue.destination as! PhasesViewController
+        pvc.workout = workoutData
     }
 }
 

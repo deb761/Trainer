@@ -26,15 +26,7 @@ class WorkoutsViewController: UITableViewController {
         
         navigationController?.isToolbarHidden = false
         
-        let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkoutData")
-        request.returnsObjectsAsFaults = false
-        
-        do {
-            workouts = try context.fetch(request) as! [WorkoutData]
-        } catch {
-            print("Couldn't fetch results")
-        }
+        workouts = DataAccess.getWorkouts()
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,20 +43,21 @@ class WorkoutsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return workouts.count
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 96
+        return UITableViewAutomaticDimension
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "workout cell", for: indexPath) as? WorkoutCell
         
         if let cell = cell {
-            cell.lblTitle?.text = "Workout \(indexPath)"
-            cell.lblDuration?.text = "45:00"
-            cell.lblDescription?.text = "This is a great workout!"
+            let workout = workouts[indexPath.row]
+            cell.lblTitle?.text = "Workout \(indexPath.row)"
+            cell.lblDuration?.text = DataAccess.getDuration(workout).format() ?? ""
+            cell.lblDescription?.text = DataAccess.getDescription(workout)
             cell.lblLast?.text = "02/10/17"
             cell.accessoryType = .disclosureIndicator
         }
@@ -80,17 +73,21 @@ class WorkoutsViewController: UITableViewController {
     }
     */
 
-    /*
+
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if DataAccess.deleteWorkout(workouts[indexPath.row]) {
+                workouts.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadData()
+            }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+
 
     /*
     // Override to support rearranging the table view.
@@ -113,24 +110,17 @@ class WorkoutsViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
-        let pvc = segue.destination as! PhasesViewController
         // Pass the selected object to the new view controller.
-        if segue.identifier == "add workout" {
-            let context = appDelegate.persistentContainer.viewContext
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Activity")
-            request.returnsObjectsAsFaults = false
-            request.predicate = NSPredicate(format: "name == %@", "Walk")
-
-            do {
-                let results = try context.fetch(request) as! [Activity]
-                let walk = results[0]
-                pvc.workout = NSEntityDescription.insertNewObject(forEntityName: "WorkoutData", into: context) as! WorkoutData
-
-                pvc.workout.warmup = easyPhase(context: context, walk: walk)
-                pvc.workout.cooldown = easyPhase(context: context, walk: walk)
-            } catch {
-                print("Couldn't fetch results")
-            }
+        if segue.identifier == "addWorkout" {
+            let workout = DataAccess.addWorkout("My Workout")
+            workouts.append(workout)
+            let pvc = segue.destination as! PhasesViewController
+            pvc.workout = workout
+        }
+        else {
+            // go to main workout view
+            let mvc = segue.destination as! ViewController
+            mvc.workoutData = workouts[(tableView.indexPathForSelectedRow?.row)!]            
         }
     }
     

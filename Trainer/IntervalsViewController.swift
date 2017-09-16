@@ -8,15 +8,15 @@
 
 import UIKit
 
-class PhasesViewController: UITableViewController {
+class IntervalsViewController: UITableViewController {
 
     // This is set by the view seguing to this view
-    var workout:WorkoutData!
+    var intervals:Intervals!
     
-    let segments:[String] = ["Warmup", "Workout", "Cooldown"]
-    let phasesSection = 1
-    @IBAction func timeChanged(_ sender: Any) {
-    }
+    let segments:[String] = ["Repeats", "Phases"]
+    let repeatSection = 0
+    let phaseSection = 1
+
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
@@ -41,14 +41,14 @@ class PhasesViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // return the number of sections
-        return 3
+        return segments.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         switch (section) {
-        case phasesSection:
-            if let phases = workout?.phases {
+        case phaseSection:
+            if let phases = intervals?.phases {
                 return phases.count
             }
         default:
@@ -58,7 +58,7 @@ class PhasesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "phase header") ?? UITableViewHeaderFooterView(reuseIdentifier: "phase header")
+        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "intervalHeader") ?? UITableViewHeaderFooterView(reuseIdentifier: "intervalHeader")
         
         cell.textLabel?.text = segments[section]
         return cell
@@ -67,30 +67,28 @@ class PhasesViewController: UITableViewController {
         return 30.0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "phaseCell", for: indexPath)
 
+        var cell:UITableViewCell
         // Configure the cell...
-        cell.accessoryType = .disclosureIndicator
-        var phase:PhaseData?
-        
-        switch (indexPath.section) {
-        case 0:
-            phase = workout?.warmup
-        case 2:
-            phase = workout?.cooldown
-        default:
-            phase = workout?.phases?[indexPath.row] as? PhaseData
+        if indexPath.section == repeatSection {
+            cell = tableView.dequeueReusableCell(withIdentifier: "repeatCell", for: indexPath)
+            if let cell = cell as? RepeatCell {
+                cell.lblRepeats.text = "\(intervals.repeats)"
+            }
+            return cell
         }
-        
-        if let phase = phase {
-            cell.detailTextLabel?.text = DataAccess.getDuration(phase).format()
-            cell.textLabel?.text = DataAccess.getDescription(phase)
+        cell = tableView.dequeueReusableCell(withIdentifier: "phaseCell", for: indexPath)
+        if let cell = cell as? PhaseCell {
+            cell.accessoryType = .disclosureIndicator
+            if let phase = intervals?.phases?[indexPath.row] as? PhaseData {
+                cell.detailTextLabel?.text = (phase.duration as TimeInterval).format()
+                cell.textLabel?.text = phase.activity?.name
+            }
+            else {
+                cell.detailTextLabel?.text = "5:00"
+                cell.textLabel?.text = "Brisk Walk \(indexPath.section), \(indexPath.row)"
+            }
         }
-        else {
-            cell.detailTextLabel?.text = "5:00"
-            cell.textLabel?.text = "Brisk Walk \(indexPath.section), \(indexPath.row)"
-        }
-        
         return cell
     }
     
@@ -129,64 +127,20 @@ class PhasesViewController: UITableViewController {
         return true
     }
     */
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case phasesSection:
-            if (workout.phases?[indexPath.row] as? Intervals) != nil {
-                performSegue(withIdentifier: "editIntervals", sender: self)
-            }
-            else {
-                performSegue(withIdentifier: "editPhase", sender: self)
-            }
-        default:
-            performSegue(withIdentifier: "editPhase", sender: self)
-        }
-    }
-    // Ask the user if he/she wants to add an interval set or a phase
-    @IBAction func addPhasePressed(_ sender: UIBarButtonItem) {
-        // Create action view
-        let alert = UIAlertController(title: "Add Phase", message: "Select Phase Type", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Phase", style: .default, handler: { (action) in
-            self.performSegue(withIdentifier: "addPhase", sender: self)
-        }))
-        alert.addAction(UIAlertAction(title: "Intervals", style: .default, handler: { (action) in
-            self.performSegue(withIdentifier: "addIntervals", sender: self)
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
+
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Pass the selected object to the new view controller.
-        switch segue.identifier! {
-        case "addPhase":
-            let vc = segue.destination as! PhaseViewController
+        let vc = segue.destination as! PhaseViewController
+        if segue.identifier == "addPhase" {
             vc.phase = DataAccess.addPhase("Phase")
-            vc.phase?.workout = self.workout
-
-        case "addIntervals":
-            let vc = segue.destination as! IntervalsViewController
-            vc.intervals = DataAccess.addIntervals()
-            vc.intervals?.workout = self.workout
-
-        default:
-            if let indexPath = tableView.indexPathForSelectedRow {
-                if let vc = segue.destination as? PhaseViewController {
-                    switch indexPath.section {
-                    case 0:
-                        vc.phase = workout.warmup
-                    case 2:
-                        vc.phase = workout.cooldown
-                    default:
-                        vc.phase = workout.phases?[indexPath.row] as? PhaseData
-                    }
-                }
-                else if let vc = segue.destination as? IntervalsViewController{
-                    vc.intervals = workout.phases?[indexPath.row] as? Intervals
-                }
-            }
+            vc.phase?.interval = intervals
+        }
+        else if let indexPath = tableView.indexPathForSelectedRow {
+            vc.phase = intervals.phases?[indexPath.row] as? PhaseData
         }
     }
 

@@ -9,8 +9,8 @@
 import Foundation
 
 public class Phase {
-    var activity:String
-    var duration:TimeInterval
+    var activity:String = ""
+    var duration:TimeInterval = 0.0
     var elapsed:TimeInterval {
         get {
             return ttg - duration
@@ -29,11 +29,12 @@ public class Phase {
     }
     // Use when the phase is paused
     var timeRemaining:TimeInterval = 0.0
-    static let secondsPerMinute = 60
     
-    public init(definition:[String:Any]) {
-        activity = definition["activity"] as! String
-        duration = TimeInterval(definition["duration"] as! Int * Phase.secondsPerMinute)
+    public init(data:PhaseData) {
+        if let name = data.activity?.name {
+            activity = name
+        }
+        duration = TimeInterval(data.duration)
     }
     // Set the phase endTime
     public func startAt(_ start:Date) {

@@ -10,7 +10,7 @@ import Foundation
 import AudioToolbox
 
 class Workout {
-    var description:[String] = []
+    var description:String = ""
     var duration:TimeInterval = TimeInterval(0)
     var startTime:Date?
     var endTime:Date?
@@ -19,20 +19,27 @@ class Workout {
     var currentPhase:Phase
 
     // Read the plist for this project and fill in the settings
-    public init(workout:[String:AnyObject]) {
-        phases.append(Phase(definition: workout["warmup"] as! [String:Any]))
-        duration = phases[0].duration
-        for _ in 1 ... (workout["intervals"]!["repeats"] as! Int) {
-            for phase in workout["intervals"]!["phases"] as! [[String : Any]] {
-                let interval = Phase(definition: phase)
-                phases.append(interval)
-                duration += interval.duration
+    public init(data:WorkoutData) {
+        let warmup = Phase(data: (data.warmup)!)
+        phases.append(warmup)
+        duration = DataAccess.getDuration(data)
+        description = DataAccess.getDescription(data)
+        for object in data.phases! {
+            if let interval = object as? Intervals {
+                for _ in 1 ... (interval.repeats) {
+                    for intervalPhase in interval.phases! {
+                        let interval = Phase(data: intervalPhase as! PhaseData)
+                        phases.append(interval)
+                    }
+                }
+            }
+            else if let phaseData = object as? PhaseData {
+                let phase = Phase(data: phaseData)
+                phases.append(phase)
             }
         }
-        let cooldown = Phase(definition: workout["cooldown"] as! [String : Any])
+        let cooldown = Phase(data: data.cooldown!)
         phases.append(cooldown)
-        duration += cooldown.duration
-        description = workout["description"] as! [String]
         currentPhase = phases[0]
     }
     // Start the workout
