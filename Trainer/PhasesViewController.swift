@@ -13,10 +13,10 @@ class PhasesViewController: UITableViewController {
     // This is set by the view seguing to this view
     var workout:WorkoutData!
     
-    let segments:[String] = ["Warmup", "Workout", "Cooldown"]
-    let phasesSection = 1
-    @IBAction func timeChanged(_ sender: Any) {
+    enum Section: Int {
+        case name = 0, warmup, workout, cooldown
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
@@ -41,13 +41,13 @@ class PhasesViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // return the number of sections
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        switch (section) {
-        case phasesSection:
+        switch Section(rawValue: section)! {
+        case .workout:
             if let phases = workout?.phases {
                 return phases.count
             }
@@ -58,25 +58,35 @@ class PhasesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "phase header") ?? UITableViewHeaderFooterView(reuseIdentifier: "phase header")
+        let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "phaseHeader") ?? UITableViewHeaderFooterView(reuseIdentifier: "phaseHeader")
         
-        cell.textLabel?.text = segments[section]
+        cell.textLabel?.text = "\(Section(rawValue: section) ?? Section.name)"
         return cell
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "phaseCell", for: indexPath)
+        let section = Section(rawValue: indexPath.section)!
+        var cell:UITableViewCell
+        
+        if section != .name {
+            cell = tableView.dequeueReusableCell(withIdentifier: "phaseCell", for: indexPath)
+        }
+        else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "nameCell", for: indexPath)
+        }
 
         // Configure the cell...
         cell.accessoryType = .disclosureIndicator
         var phase:PhaseData?
         
-        switch (indexPath.section) {
-        case 0:
+        switch section {
+        case .name:
+            cell.accessoryType = .none
+        case .warmup:
             phase = workout?.warmup
-        case 2:
+        case .cooldown:
             phase = workout?.cooldown
         default:
             phase = workout?.phases?[indexPath.row] as? PhaseData
@@ -86,34 +96,47 @@ class PhasesViewController: UITableViewController {
             cell.detailTextLabel?.text = DataAccess.getDuration(phase).format()
             cell.textLabel?.text = DataAccess.getDescription(phase)
         }
-        else {
-            cell.detailTextLabel?.text = "5:00"
-            cell.textLabel?.text = "Brisk Walk \(indexPath.section), \(indexPath.row)"
+        else if let cell = cell as? WorkoutNameCell {
+            cell.txtName.text = workout.name
+            if let last = workout.last {
+                cell.lblLast.text = "\(last)"
+            }
+            else {
+                cell.lblLast.text = "Never"
+            }
         }
         
         return cell
     }
     
 
-    /*
+    @IBAction func nameChanged(_ sender: Any) {
+        if let field = sender as? UITextField {
+            workout.name = field.text
+        }
+    }
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return indexPath.section == Section.workout.rawValue
     }
-    */
 
-    /*
+
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if let phase = workout.phases?[indexPath.row] as? PhaseData {
+                if DataAccess.delete(phase) {
+                    //tableView.reloadSections(IndexSet([phasesSection]), with: .automatic)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -130,14 +153,17 @@ class PhasesViewController: UITableViewController {
     }
     */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case phasesSection:
+        let section = Section(rawValue: indexPath.section)!
+        switch section {
+        case .workout:
             if (workout.phases?[indexPath.row] as? Intervals) != nil {
                 performSegue(withIdentifier: "editIntervals", sender: self)
             }
             else {
                 performSegue(withIdentifier: "editPhase", sender: self)
             }
+        case .name:
+            break
         default:
             performSegue(withIdentifier: "editPhase", sender: self)
         }
@@ -174,10 +200,11 @@ class PhasesViewController: UITableViewController {
         default:
             if let indexPath = tableView.indexPathForSelectedRow {
                 if let vc = segue.destination as? PhaseViewController {
-                    switch indexPath.section {
-                    case 0:
+                    let section = Section(rawValue: indexPath.section)!
+                    switch section {
+                    case .warmup:
                         vc.phase = workout.warmup
-                    case 2:
+                    case .cooldown:
                         vc.phase = workout.cooldown
                     default:
                         vc.phase = workout.phases?[indexPath.row] as? PhaseData

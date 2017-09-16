@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trainer/Workout.swift"
-            timestampString = "527286111.757959"
+            timestampString = "527297751.310834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
@@ -47,7 +47,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trainer/PhasesViewController.swift"
-            timestampString = "527286111.758314"
+            timestampString = "527297751.317685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
@@ -63,11 +63,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trainer/WorkoutsViewController.swift"
-            timestampString = "527286111.758599"
+            timestampString = "527297751.322588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -79,11 +79,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trainer/PhasesViewController.swift"
-            timestampString = "527286111.758848"
+            timestampString = "527297751.326448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -91,15 +91,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trainer/WorkoutsViewController.swift"
-            timestampString = "527286111.75893"
+            timestampString = "527297751.328329"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -111,11 +111,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trainer/WorkoutsViewController.swift"
-            timestampString = "527286111.758986"
+            timestampString = "527297751.330995"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -127,7 +127,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trainer/MainViewController.swift"
-            timestampString = "527286111.75904"
+            timestampString = "527297751.33262"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "61"
@@ -143,11 +143,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trainer/IntervalsViewController.swift"
-            timestampString = "527286111.759261"
+            timestampString = "527297751.337267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -159,11 +159,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trainer/DataAccess.swift"
-            timestampString = "527286111.759488"
+            timestampString = "527297751.340562"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "getDescription(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -175,13 +175,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trainer/DataAccess.swift"
-            timestampString = "527286111.760303"
+            timestampString = "527297751.344351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "getDescription(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trainer/DataAccess.swift"
+            timestampString = "527297751.345364"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "getDescription(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Trainer.DataAccess.getDescription(Trainer.WorkoutData) -&gt; Swift.String"
+                  moduleName = "Trainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deb/Development/Trainer/Trainer/DataAccess.swift"
+                  timestampString = "527296129.799038"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "173"
+                  endingLineNumber = "173"
+                  offsetFromSymbolStart = "4514">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #4 : @autoclosure () throws -&gt; Swift.String in static Trainer.DataAccess.getDescription(Trainer.WorkoutData) -&gt; Swift.String"
+                  moduleName = "Trainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deb/Development/Trainer/Trainer/DataAccess.swift"
+                  timestampString = "527296129.80718"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "173"
+                  endingLineNumber = "173"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

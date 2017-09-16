@@ -12,6 +12,15 @@ import CoreData
 class DataAccess {
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    static func save() {
+        let context = appDelegate.persistentContainer.viewContext
+        do {
+            try context.save()
+            print("Saved data")
+        } catch let error as NSError {
+            print("There was an error saving data: \(error.userInfo)")
+        }
+    }
     static func addActivity(_ name:String) -> Activity? {
         let context = appDelegate.persistentContainer.viewContext
         let newActivity = NSEntityDescription.insertNewObject(forEntityName: "Activity", into: context)
@@ -52,19 +61,35 @@ class DataAccess {
         return activities
     }
     
-    static func addPhase(_ name:String) -> PhaseData {
+    static func addPhase(_ name:String, to:NSManagedObject? = nil) -> PhaseData {
         let context = appDelegate.persistentContainer.viewContext
-        let newPhase = NSEntityDescription.insertNewObject(forEntityName: "PhaseData", into: context)
+        let newPhase = NSEntityDescription.insertNewObject(forEntityName: "PhaseData", into: context) as! PhaseData
         newPhase.setValue(300.0, forKey: "duration")
+        if let workout = to as? WorkoutData {
+            newPhase.workout = workout
+        } else if let intervals = to as? Intervals {
+            newPhase.intervals = intervals
+        }
         do {
             try context.save()
             print("Saved")
         } catch let error as NSError {
             print("There was an error saving a Phase: \(error.userInfo)")
         }
-        return newPhase as! PhaseData
+        return newPhase
     }
-    
+    static func delete(_ phase:PhaseData) -> Bool {
+        let context = appDelegate.persistentContainer.viewContext
+        context.delete(phase)
+        do {
+            try context.save()
+            return true
+        } catch let error as NSError {
+            print("Error deleting Phase: \(error.userInfo)")
+        }
+        return false
+    }
+
     static func addIntervals() -> Intervals {
         let context = appDelegate.persistentContainer.viewContext
         let intervals = NSEntityDescription.insertNewObject(forEntityName: "Intervals", into: context)
@@ -123,7 +148,8 @@ class DataAccess {
         if let intervals = phase as? Intervals {
             return getDescription(intervals)
         }
-        return phase.activity?.name ?? ""
+        let duration = phase.duration.format() ?? "*"
+        return phase.activity?.name ?? "" + " for \(duration)"
     }
     static func getDescription(_ intervals:Intervals) -> String {
         var description:String = "Repeat "
@@ -142,8 +168,9 @@ class DataAccess {
             if let intervals = object as? Intervals {
                 description += getDescription(intervals) + ", "
             }
-            else if let phaseData = object as? PhaseData {
-                description += getDescription(phaseData) + ", "
+            else if let phase = object as? PhaseData {
+                let duration = phase.duration.format() ?? "*"
+                description += "\(phase.activity?.name ?? "Not set") \(duration), "
             }
         }
         description += "Cooldown \(workout.cooldown?.activity?.name ?? "") for \(workout.cooldown?.duration.format() ?? "")"
@@ -162,7 +189,7 @@ class DataAccess {
                 duration += phase.duration
             }
         }
-        duration *= intervals.repeats
+        duration *= Double(intervals.repeats)
         return TimeInterval(duration)
     }
     static func getDuration(_ workout:WorkoutData) -> TimeInterval {

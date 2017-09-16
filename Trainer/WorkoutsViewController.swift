@@ -15,6 +15,9 @@ class WorkoutsViewController: UITableViewController {
     // connect to core data
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,9 +59,15 @@ class WorkoutsViewController: UITableViewController {
         if let cell = cell {
             let workout = workouts[indexPath.row]
             cell.lblTitle?.text = "Workout \(indexPath.row)"
+            if let name = workout.name {
+                cell.lblTitle?.text = name
+            }
             cell.lblDuration?.text = DataAccess.getDuration(workout).format() ?? ""
             cell.lblDescription?.text = DataAccess.getDescription(workout)
-            cell.lblLast?.text = "02/10/17"
+            cell.lblLast?.text = "Never"
+            if let last = workout.last {
+                cell.lblLast?.text = "\(last)"
+            }
             cell.accessoryType = .disclosureIndicator
         }
         return cell!

@@ -129,37 +129,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ooh-3m-G3z">
-                                <rect key="frame" x="16" y="64" width="343" height="461"/>
+                                <rect key="frame" x="16" y="64" width="343" height="408"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="742-Iu-ThJ">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="742-Iu-ThJ">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="101"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-zZ-lcY">
-                                                <rect key="frame" x="0.0" y="0.0" width="168.5" height="101"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-zZ-lcY">
+                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="101"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LcY-8F-nrG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="168.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="65.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JoO-iW-12a" userLabel="Lbl Duration">
-                                                        <rect key="frame" x="0.0" y="20.5" width="168.5" height="60"/>
+                                                        <rect key="frame" x="0.0" y="20.5" width="65.5" height="60"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minutes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nME-3K-Hr2">
-                                                        <rect key="frame" x="0.0" y="80.5" width="168.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="80.5" width="65.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" text="Brisk 5-minute warm-up walk. " lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tby-p8-S6U" userLabel="Description">
-                                                <rect key="frame" x="174.5" y="0.0" width="168.5" height="101"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Brisk 5-minute warm-up walk. " lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tby-p8-S6U" userLabel="Description">
+                                                <rect key="frame" x="174.5" y="30" width="168.5" height="41"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -201,14 +201,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oND-z5-2TH">
-                                        <rect key="frame" x="0.0" y="413" width="343" height="48"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <state key="normal" title="Start"/>
-                                        <connections>
-                                            <action selector="controlWorkout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zjk-Ho-Kum"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -228,7 +220,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Hdk-XT-62g"/>
                         <barButtonItem title="Start" id="NDk-le-2mf" userLabel="Start">
                             <connections>
-                                <action selector="resetTime:" destination="BYZ-38-t0r" id="bnx-pV-P64"/>
+                                <action selector="controlWorkout:" destination="BYZ-38-t0r" id="yVg-Tu-4b4"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Qse-nv-P4V"/>
@@ -242,7 +234,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="btnStart" destination="oND-z5-2TH" id="5nk-bG-A9F"/>
+                        <outlet property="btnStart" destination="NDk-le-2mf" id="i64-dk-ea6"/>
                         <outlet property="lblActivity" destination="6Pn-u2-9WU" id="idT-sw-MgH"/>
                         <outlet property="lblDescription" destination="Tby-p8-S6U" id="O8g-wM-6yW"/>
                         <outlet property="lblDuration" destination="JoO-iW-12a" id="OWi-St-ISV"/>
@@ -278,7 +270,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rmX-Pi-XNn">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" id="rmX-Pi-XNn">
                                             <rect key="frame" x="316" y="24" width="44" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -287,6 +279,46 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nameCell" id="2Qh-AN-XCb" customClass="WorkoutNameCell" customModule="Trainer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="123.5" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Qh-AN-XCb" id="1SK-ne-kZP">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4My-kG-5Tu">
+                                            <rect key="frame" x="8" y="8" width="359" height="27.5"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y2P-G6-QOp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="317" height="27.5"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="nameChanged:" destination="cgu-B3-gvf" eventType="editingDidEnd" id="BDp-qn-vrg"/>
+                                                    </connections>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VG5-k1-sGB">
+                                                    <rect key="frame" x="317" y="0.0" width="42" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="4My-kG-5Tu" secondAttribute="trailing" id="2Ni-lH-WWQ"/>
+                                        <constraint firstItem="4My-kG-5Tu" firstAttribute="leading" secondItem="1SK-ne-kZP" secondAttribute="leadingMargin" id="7Dc-tB-PAs"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="4My-kG-5Tu" secondAttribute="bottom" id="Ul6-Sr-fdd"/>
+                                        <constraint firstItem="4My-kG-5Tu" firstAttribute="top" secondItem="1SK-ne-kZP" secondAttribute="topMargin" id="d8A-kF-ZRZ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="lblLast" destination="VG5-k1-sGB" id="WdQ-ti-wMU"/>
+                                    <outlet property="txtName" destination="y2P-G6-QOp" id="ePS-Zs-Bo0"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -435,11 +467,14 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="lKE-88-4Hv">
+                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minimumValue="1" maximumValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="lKE-88-4Hv">
                                             <rect key="frame" x="273" y="8" width="94" height="29"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="94" id="XP3-1p-Uob"/>
                                             </constraints>
+                                            <connections>
+                                                <action selector="changeRepeats:" destination="OpN-jE-fby" eventType="valueChanged" id="FWH-SG-lsR"/>
+                                            </connections>
                                         </stepper>
                                     </subviews>
                                     <constraints>
@@ -478,7 +513,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="926-xb-kQ0"/>
-        <segue reference="3aZ-iF-C5K"/>
-        <segue reference="qzm-cL-FoE"/>
+        <segue reference="2gl-bI-HEO"/>
+        <segue reference="4KD-GA-Wrb"/>
     </inferredMetricsTieBreakers>
 </document>

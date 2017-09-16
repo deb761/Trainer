@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     // outlets to display elements
     @IBOutlet weak var lblDuration: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
-    @IBOutlet weak var btnStart: UIButton!
+    @IBOutlet weak var btnStart: UIBarButtonItem!
     
     @IBOutlet weak var lblTimeElapsed: UILabel!
     @IBOutlet weak var lblIntervalTimeToGo: UILabel!
@@ -138,6 +138,7 @@ class ViewController: UIViewController {
             currentWorkout!.update()
             updateLabels()
         } else {
+            workoutData?.last = Date()
             timer.invalidate()
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             AudioServicesPlayAlertSound(SystemSoundID(1005))
@@ -167,10 +168,10 @@ class ViewController: UIViewController {
                                              selector: #selector(ViewController.processTimer),
                                              userInfo: nil, repeats: true)
                 timer.fire()
-                btnStart.setTitle("Pause", for: .normal)
+                btnStart.title = "Pause"
             }
             else {
-                btnStart.setTitle("Resume", for: .normal)
+                btnStart.title = "Resume"
                 timer.invalidate()
                 workout.pause()
             }

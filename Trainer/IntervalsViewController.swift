@@ -17,6 +17,9 @@ class IntervalsViewController: UITableViewController {
     let repeatSection = 0
     let phaseSection = 1
 
+    @IBOutlet weak var lblRepeats: UILabel!
+    @IBOutlet weak var stepRepeat: UIStepper!
+
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
@@ -91,8 +94,14 @@ class IntervalsViewController: UITableViewController {
         }
         return cell
     }
+    // Increment or decrement the number of repeats
+    @IBAction func changeRepeats(_ sender: Any) {
+        if let stepper = sender as? UIStepper {
+            intervals.repeats = Int32(Int(stepper.value))
+            tableView.reloadSections(IndexSet([0]), with: .automatic)
+        }
+    }
     
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -136,8 +145,7 @@ class IntervalsViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         let vc = segue.destination as! PhaseViewController
         if segue.identifier == "addPhase" {
-            vc.phase = DataAccess.addPhase("Phase")
-            vc.phase?.interval = intervals
+            vc.phase = DataAccess.addPhase("Phase", to:intervals)
         }
         else if let indexPath = tableView.indexPathForSelectedRow {
             vc.phase = intervals.phases?[indexPath.row] as? PhaseData
