@@ -14,9 +14,10 @@ import UserNotifications
 class ViewController: UIViewController {
 
     var isGrantedNotificationAccess = false
-    var currentWorkout:Workout?
-    var workoutData:WorkoutData?
-    
+    var workoutData:WorkoutData? // set by WorkoutsViewController before segway
+
+    var workout:Workout?
+
     // outlets to display elements
     @IBOutlet weak var lblDuration: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
@@ -32,29 +33,6 @@ class ViewController: UIViewController {
     // time tracking parameters
     var timer:Timer = Timer()
     
-    var workoutNum:Int {
-        get {
-            return defs.integer(forKey: "workoutNum")
-        }
-        set {
-            defs.set(newValue, forKey: "workoutNum")
-        }
-    }
-    
-    var completedWorkouts:[Int] {
-        get {
-            if let array = defs.array(forKey: "completedWorkouts") as? [Int] {
-                return array
-            }
-            else {
-                return []
-            }
-        }
-        set {
-            defs.set(newValue, forKey: "completedWorkouts")
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,13 +45,24 @@ class ViewController: UIViewController {
                 // TODO add alert to complain to user
             }
         }
+        if workout == nil && workoutData != nil {
+            workout = Workout(data: workoutData!)
+            if let remaining = workout?.endTime?.timeIntervalSinceNow {
+                if remaining > 0.0 {
+                    timer = Timer.scheduledTimer(timeInterval: 1, target: self,
+                                                 selector: #selector(ViewController.processTimer),
+                                                 userInfo: nil, repeats: true)
+                    timer.fire()
+                    btnStart.title = "Pause"
+                }
+            }
+        }
         fillLabels()
     }
-    
+
     func fillLabels() {
-        currentWorkout = Workout(data:workoutData!)
-        lblDescription.text = currentWorkout?.description
-        lblDuration.text = "\(Int((currentWorkout?.duration)!) / TimeInterval.secondsPerMinute)"
+        lblDescription.text = workout?.description
+        lblDuration.text = "\(Int((workout?.duration)!) / TimeInterval.secondsPerMinute)"
         updateLabels()
 
     }
@@ -134,11 +123,10 @@ class ViewController: UIViewController {
     // Update the display and play the alert when the timer fires
     @objc func processTimer() {
         let now = Date()
-        if (now < currentWorkout!.endTime!) {
-            currentWorkout!.update()
+        if (now < workout!.endTime!) {
+            workout!.update()
             updateLabels()
         } else {
-            workoutData?.last = Date()
             timer.invalidate()
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             AudioServicesPlayAlertSound(SystemSoundID(1005))
@@ -146,17 +134,18 @@ class ViewController: UIViewController {
     }
     // Update the labels
     func updateLabels() {
-        lblTimeToGo.text = currentWorkout!.ttg.format()
-        lblTimeElapsed.text = currentWorkout!.elapsed.format()
-        lblActivity.text = currentWorkout!.currentPhase.activity
-        lblIntervalTimeToGo.text = currentWorkout!.currentPhase.ttg.format()
+        lblTimeToGo.text = workout!.ttg.format()
+        lblTimeElapsed.text = workout!.elapsed.format()
+        lblActivity.text = workout!.currentPhase.activity
+        lblIntervalTimeToGo.text = workout!.currentPhase.ttg.format()
     }
     // Start or pause the workout
     @IBAction func controlWorkout(_ sender: Any) {
-        if let workout = currentWorkout {
+        if let workout = workout {
             if !timer.isValid {
                 if workout.startTime == nil {
                     workout.start()
+                    workoutData?.last = workout.endTime
                     if isGrantedNotificationAccess {
                         createNotifications(workout)
                     }
@@ -179,7 +168,7 @@ class ViewController: UIViewController {
     }
     // Restart the workout
     @IBAction func resetTime(_ sender: Any) {
-        if let workout = currentWorkout {
+        if let workout = workout {
             workout.start()
             createNotifications(workout)
         }

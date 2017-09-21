@@ -23,6 +23,14 @@ extension TimeInterval {
         return formatter.string(from: self)
     }
 }
+extension Date {
+    
+    func format() -> String? {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: self)
+    }
+}
 extension UIView {
     
     func rotate(_ toValue: CGFloat, duration: CFTimeInterval = 0.2) {

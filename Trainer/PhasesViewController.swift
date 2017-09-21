@@ -99,7 +99,7 @@ class PhasesViewController: UITableViewController {
         else if let cell = cell as? WorkoutNameCell {
             cell.txtName.text = workout.name
             if let last = workout.last {
-                cell.lblLast.text = "\(last)"
+                cell.lblLast.text = last.format()
             }
             else {
                 cell.lblLast.text = "Never"

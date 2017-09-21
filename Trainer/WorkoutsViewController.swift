@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class WorkoutsViewController: UITableViewController {
+class WorkoutsViewController: UITableViewController, UIGestureRecognizerDelegate {
 
     var workouts:[WorkoutData] = []
     // connect to core data
@@ -66,7 +66,7 @@ class WorkoutsViewController: UITableViewController {
             cell.lblDescription?.text = DataAccess.getDescription(workout)
             cell.lblLast?.text = "Never"
             if let last = workout.last {
-                cell.lblLast?.text = "\(last)"
+                cell.lblLast?.text = last.format()
             }
             cell.accessoryType = .disclosureIndicator
         }
@@ -126,18 +126,25 @@ class WorkoutsViewController: UITableViewController {
             let pvc = segue.destination as! PhasesViewController
             pvc.workout = workout
         }
-        else {
+        else if segue.identifier == "showWorkout" {
             // go to main workout view
             let mvc = segue.destination as! ViewController
-            mvc.workoutData = workouts[(tableView.indexPathForSelectedRow?.row)!]            
+            mvc.workoutData = workouts[(tableView.indexPathForSelectedRow?.row)!]
+        }
+        else {
+            let pvc = segue.destination as! PhasesViewController
+            pvc.workout = workouts[(longPressIndex?.row)!]
         }
     }
-    
-    func easyPhase(context:NSManagedObjectContext, walk:Activity) -> PhaseData {
-        let phase = NSEntityDescription.insertNewObject(forEntityName: "PhaseData", into: context) as! PhaseData
-        phase.activity = walk
-        phase.duration = 300.0
-        return phase
+    // index position for long press gesture
+    var longPressIndex:IndexPath?
+    // Send user to WorkoutPhases page on long press
+    @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.began {
+            let p = sender.location(in: self.tableView)
+            longPressIndex = self.tableView.indexPathForRow(at: p)
+            performSegue(withIdentifier: "editWorkout", sender: self)
+        }
     }
 
 }

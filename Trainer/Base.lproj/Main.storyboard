@@ -51,6 +51,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="WXR-7B-V8h" appends="YES" id="3Pk-fW-Pv6"/>
+                                            </connections>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkC-g6-N7I" userLabel="Duration">
                                             <rect key="frame" x="307" y="8" width="60" height="20.5"/>
@@ -95,8 +99,16 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Workouts" id="dMc-n5-wW2"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <connections>
+                        <segue destination="cgu-B3-gvf" kind="show" identifier="editWorkout" id="6Qs-hK-mCY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AEy-wz-ate" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="WXR-7B-V8h">
+                    <connections>
+                        <action selector="handleLongPress:" destination="OBL-jJ-6o3" id="eR6-qh-Qmi"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-695.20000000000005" y="138.98050974512745"/>
         </scene>
@@ -287,11 +299,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4My-kG-5Tu">
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="4My-kG-5Tu">
                                             <rect key="frame" x="8" y="8" width="359" height="27.5"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y2P-G6-QOp">
-                                                    <rect key="frame" x="0.0" y="0.0" width="317" height="27.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="313" height="27.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -514,6 +526,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="926-xb-kQ0"/>
         <segue reference="2gl-bI-HEO"/>
-        <segue reference="4KD-GA-Wrb"/>
+        <segue reference="6Qs-hK-mCY"/>
     </inferredMetricsTieBreakers>
 </document>

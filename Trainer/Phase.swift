@@ -30,9 +30,12 @@ public class Phase {
     // Use when the phase is paused
     var timeRemaining:TimeInterval = 0.0
     
-    public init(data:PhaseData) {
+    public init(data:PhaseData, rep:Int32 = 0) {
         if let name = data.activity?.name {
             activity = name
+            if rep > 0 {
+                activity += " \(rep)"
+            }
         }
         duration = TimeInterval(data.duration)
     }

@@ -17,19 +17,23 @@ class Workout {
     var phaseNum:Int = 0
     var phases:[Phase] = []
     var currentPhase:Phase
+    var data:WorkoutData
 
     // Read the plist for this project and fill in the settings
     public init(data:WorkoutData) {
+        self.data = data
         let warmup = Phase(data: (data.warmup)!)
         phases.append(warmup)
         duration = DataAccess.getDuration(data)
         description = DataAccess.getDescription(data)
         for object in data.phases! {
             if let interval = object as? Intervals {
-                for _ in 1 ... (interval.repeats) {
-                    for intervalPhase in interval.phases! {
-                        let interval = Phase(data: intervalPhase as! PhaseData)
-                        phases.append(interval)
+                if let phases = interval.phases {
+                    for rep in 1 ... (interval.repeats) {
+                        for phaseData in phases {
+                            let interval = Phase(data: phaseData as! PhaseData, rep: rep)
+                            self.phases.append(interval)
+                        }
                     }
                 }
             }
@@ -41,20 +45,33 @@ class Workout {
         let cooldown = Phase(data: data.cooldown!)
         phases.append(cooldown)
         currentPhase = phases[0]
+        if let remaining = data.last?.timeIntervalSinceNow {
+            if remaining > 0.0 {
+                endTime = data.last
+                start(at: data.last! - duration)
+                update()
+            }
+        }
     }
     // Start the workout
-    public func start() {
+    public func start(at:Date? = nil) {
         phaseNum = 0
         currentPhase = phases[phaseNum]
 
-        startTime = Date()
+        if let time = at {
+            startTime = time
+        }
+        else {
+            startTime = Date()
+        }
         var interval:TimeInterval = 0.0
         for phase in phases {
             phase.startAt(startTime! + interval)
             interval += phase.duration
         }
         currentPhase.start()
-        endTime = startTime! + ttg
+        endTime = startTime! + duration
+        data.last = endTime
     }
     // Update the workout status
     public func update() {
