@@ -19,6 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="workout cell" editingAccessoryType="disclosureIndicator" rowHeight="96" id="GkO-cN-Oic" userLabel="Workout" customClass="WorkoutCell" customModule="Trainer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="96"/>
@@ -52,9 +53,6 @@
                                                 </label>
                                             </subviews>
                                             <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="WXR-7B-V8h" appends="YES" id="3Pk-fW-Pv6"/>
-                                            </connections>
                                         </stackView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YkC-g6-N7I" userLabel="Duration">
                                             <rect key="frame" x="307" y="8" width="60" height="20.5"/>
@@ -87,6 +85,7 @@
                         <connections>
                             <outlet property="dataSource" destination="OBL-jJ-6o3" id="gvy-VW-fnc"/>
                             <outlet property="delegate" destination="OBL-jJ-6o3" id="QVn-sJ-9cD"/>
+                            <outletCollection property="gestureRecognizers" destination="dzE-4t-z08" appends="YES" id="hj2-g5-d1q"/>
                         </connections>
                     </tableView>
                     <toolbarItems>
@@ -100,13 +99,13 @@
                     <navigationItem key="navigationItem" title="Workouts" id="dMc-n5-wW2"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
-                        <segue destination="cgu-B3-gvf" kind="show" identifier="editWorkout" id="6Qs-hK-mCY"/>
+                        <segue destination="cgu-B3-gvf" kind="show" identifier="editWorkout" id="YFK-PR-Xb4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AEy-wz-ate" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="WXR-7B-V8h">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="dzE-4t-z08">
                     <connections>
-                        <action selector="handleLongPress:" destination="OBL-jJ-6o3" id="eR6-qh-Qmi"/>
+                        <action selector="handleLongPress:" destination="OBL-jJ-6o3" id="gpy-e0-Do7"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
@@ -526,6 +525,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="926-xb-kQ0"/>
         <segue reference="2gl-bI-HEO"/>
-        <segue reference="6Qs-hK-mCY"/>
+        <segue reference="YFK-PR-Xb4"/>
     </inferredMetricsTieBreakers>
 </document>
