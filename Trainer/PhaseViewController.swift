@@ -165,7 +165,7 @@ class PhaseViewController: UITableViewController {
     @IBAction func addActivity(_ sender: Any) {
         let alert = UIAlertController(title: "Add Activity", message: "Name", preferredStyle: .alert)
         alert.addTextField { (textField) in
-            textField.text = "Enter name"
+            textField.placeholder = "Enter Name"
         }
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
             let textField = alert.textFields![0]

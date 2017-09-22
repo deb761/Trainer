@@ -178,6 +178,7 @@ class PhasesViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "Intervals", style: .default, handler: { (action) in
             self.performSegue(withIdentifier: "addIntervals", sender: self)
         }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     

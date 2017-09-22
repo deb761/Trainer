@@ -121,7 +121,7 @@ class WorkoutsViewController: UITableViewController, UIGestureRecognizerDelegate
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "addWorkout" {
-            let workout = DataAccess.addWorkout("My Workout")
+            let workout = DataAccess.addWorkout("")
             workouts.append(workout)
             let pvc = segue.destination as! PhasesViewController
             pvc.workout = workout
