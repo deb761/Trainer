@@ -142,34 +142,34 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ooh-3m-G3z">
                                 <rect key="frame" x="16" y="64" width="343" height="408"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="742-Iu-ThJ">
+                                    <stackView opaque="NO" contentMode="center" horizontalCompressionResistancePriority="500" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="742-Iu-ThJ">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="101"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-zZ-lcY">
-                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="101"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-zZ-lcY">
+                                                <rect key="frame" x="0.0" y="0.0" width="73" height="101"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LcY-8F-nrG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="65.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="73" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JoO-iW-12a" userLabel="Lbl Duration">
-                                                        <rect key="frame" x="0.0" y="20.5" width="65.5" height="60"/>
+                                                        <rect key="frame" x="0.0" y="20.5" width="73" height="60"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minutes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nME-3K-Hr2">
-                                                        <rect key="frame" x="0.0" y="80.5" width="65.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="80.5" width="73" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Brisk 5-minute warm-up walk. " lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tby-p8-S6U" userLabel="Description">
-                                                <rect key="frame" x="174.5" y="30" width="168.5" height="41"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="Brisk 5-minute warm-up walk. " lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="290" translatesAutoresizingMaskIntoConstraints="NO" id="Tby-p8-S6U" userLabel="Description">
+                                                <rect key="frame" x="81" y="40.5" width="262" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -216,6 +216,7 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Ooh-3m-G3z" secondAttribute="trailing" constant="16" id="KH4-9C-TsC"/>
                             <constraint firstItem="Ooh-3m-G3z" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="UZg-lp-bGj"/>
@@ -237,14 +238,14 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Qse-nv-P4V"/>
                         <barButtonItem title="Edit" id="RG0-4I-U2D" userLabel="Edit">
                             <connections>
-                                <action selector="resetTime:" destination="BYZ-38-t0r" id="a85-6g-TsP"/>
-                                <segue destination="cgu-B3-gvf" kind="show" identifier="editWorkout" id="4KD-GA-Wrb"/>
+                                <action selector="pressedEdit:" destination="BYZ-38-t0r" id="kAn-tF-iqZ"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="btnEditStop" destination="RG0-4I-U2D" id="eG4-5J-Vwh"/>
                         <outlet property="btnStart" destination="NDk-le-2mf" id="i64-dk-ea6"/>
                         <outlet property="lblActivity" destination="6Pn-u2-9WU" id="idT-sw-MgH"/>
                         <outlet property="lblDescription" destination="Tby-p8-S6U" id="O8g-wM-6yW"/>
@@ -252,6 +253,7 @@
                         <outlet property="lblIntervalTimeToGo" destination="CM9-5q-Ub3" id="vwP-bV-uzQ"/>
                         <outlet property="lblTimeElapsed" destination="TK2-JJ-bob" id="syb-GK-1Lo"/>
                         <outlet property="lblTimeToGo" destination="qJL-aM-RDd" id="EPv-Mq-CgH"/>
+                        <segue destination="cgu-B3-gvf" kind="show" identifier="editWorkout" id="nb0-bE-4Z3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -525,6 +527,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="926-xb-kQ0"/>
         <segue reference="2gl-bI-HEO"/>
-        <segue reference="YFK-PR-Xb4"/>
+        <segue reference="nb0-bE-4Z3"/>
     </inferredMetricsTieBreakers>
 </document>

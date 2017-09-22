@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblDuration: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var btnStart: UIBarButtonItem!
+    @IBOutlet weak var btnEditStop: UIBarButtonItem!
     
     @IBOutlet weak var lblTimeElapsed: UILabel!
     @IBOutlet weak var lblIntervalTimeToGo: UILabel!
@@ -45,8 +46,12 @@ class ViewController: UIViewController {
                 // TODO add alert to complain to user
             }
         }
-        if workout == nil && workoutData != nil {
-            workout = Workout(data: workoutData!)
+        fillLabels()
+    }
+
+    func fillLabels() {
+        if let data = workoutData {
+            workout = Workout(data: data)
             if let remaining = workout?.endTime?.timeIntervalSinceNow {
                 if remaining > 0.0 {
                     timer = Timer.scheduledTimer(timeInterval: 1, target: self,
@@ -54,13 +59,10 @@ class ViewController: UIViewController {
                                                  userInfo: nil, repeats: true)
                     timer.fire()
                     btnStart.title = "Pause"
+                    btnEditStop.title = "Stop"
                 }
             }
         }
-        fillLabels()
-    }
-
-    func fillLabels() {
         lblDescription.text = workout?.description
         lblDuration.text = "\(Int((workout?.duration)!) / TimeInterval.secondsPerMinute)"
         updateLabels()
@@ -130,6 +132,7 @@ class ViewController: UIViewController {
             timer.invalidate()
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             AudioServicesPlayAlertSound(SystemSoundID(1005))
+            btnEditStop.title = "Edit"
         }
     }
     // Update the labels
@@ -158,6 +161,7 @@ class ViewController: UIViewController {
                                              userInfo: nil, repeats: true)
                 timer.fire()
                 btnStart.title = "Pause"
+                btnEditStop.title = "Stop"
             }
             else {
                 btnStart.title = "Resume"
@@ -171,6 +175,25 @@ class ViewController: UIViewController {
         if let workout = workout {
             workout.start()
             createNotifications(workout)
+        }
+    }
+    @IBAction func pressedEdit(_ sender: Any) {
+        // require a long press to stop the workout, so on short press,
+        // segway to the edit page only if title is Edit
+        if btnEditStop.title == "Edit" {
+            performSegue(withIdentifier: "editWorkout", sender: self)
+        }
+        else {
+            // if the workout is running, get verification from the user
+            let alert = UIAlertController(title: "Stop?", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Stop", style: .default, handler: { (action) in
+                self.timer.invalidate()
+                self.workoutData?.last = nil
+                self.btnEditStop.title = "Edit"
+                self.btnStart.title = "Start"
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     // Prepare to edit the workout

@@ -163,12 +163,12 @@ class PhaseViewController: UITableViewController {
     */
     
     @IBAction func addActivity(_ sender: Any) {
-        let alertController = UIAlertController(title: "Add Activity", message: "Name", preferredStyle: .alert)
-        alertController.addTextField { (textField) in
+        let alert = UIAlertController(title: "Add Activity", message: "Name", preferredStyle: .alert)
+        alert.addTextField { (textField) in
             textField.text = "Enter name"
         }
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            let textField = alertController.textFields![0]
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            let textField = alert.textFields![0]
 
             if let newActivity = DataAccess.addActivity(textField.text!) {
                 self.activities.append(newActivity)
@@ -176,7 +176,8 @@ class PhaseViewController: UITableViewController {
             }
             self.dismiss(animated: true, completion: nil)
         }))
-        self.present(alertController, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

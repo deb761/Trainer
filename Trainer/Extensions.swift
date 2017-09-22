@@ -45,6 +45,14 @@ extension UIView {
     }
     
 }
+extension UIBarButtonItem {
+    var view: UIView? {
+        return value(forKey: "view") as? UIView
+    }
+    func addGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        view?.addGestureRecognizer(gestureRecognizer)
+    }
+}
 extension UIColor {
     
     convenience init(hex:Int, alpha:CGFloat = 1.0) {
