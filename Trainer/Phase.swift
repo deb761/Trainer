@@ -19,12 +19,12 @@ public class Phase {
     var endTime:Date?
     var ttg:TimeInterval {
         get {
-            if let end = endTime {
-                return end.timeIntervalSinceNow
+            if let remaining = endTime?.timeIntervalSinceNow {
+                if remaining > 0.0 {
+                    return remaining
+                }
             }
-            else {
-                return duration
-            }
+            return duration
         }
     }
     // Use when the phase is paused

@@ -13,7 +13,14 @@ class Workout {
     var description:String = ""
     var duration:TimeInterval = TimeInterval(0)
     var startTime:Date?
-    var endTime:Date?
+    public var endTime:Date? {
+        get {
+            return data.endTime
+        }
+        set {
+            data.endTime = newValue
+        }
+    }
     var phaseNum:Int = 0
     var phases:[Phase] = []
     var currentPhase:Phase
@@ -45,10 +52,9 @@ class Workout {
         let cooldown = Phase(data: data.cooldown!)
         phases.append(cooldown)
         currentPhase = phases[0]
-        if let remaining = data.last?.timeIntervalSinceNow {
+        if let remaining = endTime?.timeIntervalSinceNow {
             if remaining > 0.0 {
-                endTime = data.last
-                start(at: data.last! - duration)
+                start(at: endTime! - duration)
                 update()
             }
         }
@@ -101,14 +107,18 @@ class Workout {
             phases[num].startAt(phases[num - 1].endTime!)
         }
     }
+    // stop the workout
+    public func stop() {
+        endTime = nil
+    }
     public var ttg:TimeInterval {
         get {
-            if let end = endTime {
-                return end.timeIntervalSinceNow
+            if let remaining = endTime?.timeIntervalSinceNow {
+                if remaining > 0.0 {
+                    return remaining
+                }
             }
-            else {
-                return duration
-            }
+            return duration
         }
     }
     public var elapsed:TimeInterval {

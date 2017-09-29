@@ -46,10 +46,12 @@ class ViewController: UIViewController {
                 // TODO add alert to complain to user
             }
         }
-        fillLabels()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.fillLabels),
+                                               name: .UIApplicationDidBecomeActive, object: nil)
+        //fillLabels()
     }
 
-    func fillLabels() {
+    @objc func fillLabels() {
         if let data = workoutData {
             workout = Workout(data: data)
             if let remaining = workout?.endTime?.timeIntervalSinceNow {
@@ -62,6 +64,10 @@ class ViewController: UIViewController {
                     btnEditStop.title = "Stop"
                 }
             }
+        }
+        else {
+            btnStart.title = "Start"
+            btnEditStop.title = "Edit"
         }
         lblDescription.text = workout?.description
         lblDuration.text = "\(Int((workout?.duration)!) / TimeInterval.secondsPerMinute)"
@@ -94,17 +100,19 @@ class ViewController: UIViewController {
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: workout.phases[phaseNum - 1].endTime!.timeIntervalSinceNow, repeats: false)
             addNotification(trigger: trigger, content: content, identifier: "Phase \(phaseNum)")
         }
+        // Create complete notification
         let content = UNMutableNotificationContent()
         content.title = "Finished!"
         content.body = "Workout over"
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: workout.endTime!.timeIntervalSinceNow, repeats: false)
-        addNotification(trigger: trigger, content: content, identifier: "Test")
+        addNotification(trigger: trigger, content: content, identifier: "Complete")
 
+        // Create start notification
         let content1 = UNMutableNotificationContent()
         content1.title = "Started!"
         content1.body = "Workout started"
         let trigger1 = UNTimeIntervalNotificationTrigger(timeInterval: 15.0, repeats: false)
-        addNotification(trigger: trigger1, content: content1, identifier: "Test")
+        addNotification(trigger: trigger1, content: content1, identifier: "Started")
     }
     // Add notifications for the app
     func addNotification(trigger:UNNotificationTrigger?, content:UNMutableNotificationContent, identifier:String) {
@@ -167,6 +175,7 @@ class ViewController: UIViewController {
                 btnStart.title = "Resume"
                 timer.invalidate()
                 workout.pause()
+                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             }
         }
     }
@@ -188,7 +197,7 @@ class ViewController: UIViewController {
             let alert = UIAlertController(title: "Stop?", message: "", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Stop", style: .default, handler: { (action) in
                 self.timer.invalidate()
-                self.workoutData?.last = nil
+                self.workout?.stop()
                 self.btnEditStop.title = "Edit"
                 self.btnStart.title = "Start"
             }))

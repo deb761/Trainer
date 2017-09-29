@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13233.4" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Activity" representedClassName="Activity" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -16,6 +16,7 @@
         <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutData" inverseName="phases" inverseEntity="WorkoutData" syncable="YES"/>
     </entity>
     <entity name="WorkoutData" representedClassName="WorkoutData" syncable="YES" codeGenerationType="class">
+        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="last" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="cooldown" maxCount="1" deletionRule="Nullify" destinationEntity="PhaseData" inverseName="cooldown" inverseEntity="PhaseData" syncable="YES"/>
@@ -26,6 +27,6 @@
         <element name="Activity" positionX="-63" positionY="63" width="128" height="58"/>
         <element name="Intervals" positionX="-108" positionY="-54" width="128" height="73"/>
         <element name="PhaseData" positionX="259" positionY="-180" width="128" height="133"/>
-        <element name="WorkoutData" positionX="-281" positionY="-240" width="128" height="118"/>
+        <element name="WorkoutData" positionX="-281" positionY="-240" width="128" height="30"/>
     </elements>
 </model>
