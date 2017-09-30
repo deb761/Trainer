@@ -75,7 +75,7 @@ class PhaseViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == timeSection {
-            return 82.0
+            return 216.0
         }
         return 40.0
     }
@@ -166,6 +166,8 @@ class PhaseViewController: UITableViewController {
         let alert = UIAlertController(title: "Add Activity", message: "Name", preferredStyle: .alert)
         alert.addTextField { (textField) in
             textField.placeholder = "Enter Name"
+            textField.textContentType = UITextContentType.name
+            textField.autocapitalizationType = .words
         }
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
             let textField = alert.textFields![0]
