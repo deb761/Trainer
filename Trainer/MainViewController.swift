@@ -56,10 +56,12 @@ class ViewController: UIViewController {
             workout = Workout(data: data)
             if let remaining = workout?.endTime?.timeIntervalSinceNow {
                 if remaining > 0.0 {
-                    timer = Timer.scheduledTimer(timeInterval: 1, target: self,
-                                                 selector: #selector(ViewController.processTimer),
-                                                 userInfo: nil, repeats: true)
-                    timer.fire()
+                    if !timer.isValid {
+                        timer = Timer.scheduledTimer(timeInterval: 1, target: self,
+                                                     selector: #selector(ViewController.processTimer),
+                                                     userInfo: nil, repeats: true)
+                        timer.fire()
+                    }
                     btnStart.title = "Pause"
                     btnEditStop.title = "Stop"
                 }
@@ -97,7 +99,11 @@ class ViewController: UIViewController {
         for phaseNum in 1...workout.phases.count - 1 {
             let phase = workout.phases[phaseNum]
             let content = createContent(step: phase)
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: workout.phases[phaseNum - 1].endTime!.timeIntervalSinceNow, repeats: false)
+            let interval = workout.phases[phaseNum - 1].endTime!.timeIntervalSinceNow
+            if interval < 0 {
+                continue
+            }
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
             addNotification(trigger: trigger, content: content, identifier: "Phase \(phaseNum)")
         }
         // Create complete notification
@@ -157,12 +163,12 @@ class ViewController: UIViewController {
                 if workout.startTime == nil {
                     workout.start()
                     workoutData?.last = workout.endTime
-                    if isGrantedNotificationAccess {
-                        createNotifications(workout)
-                    }
                 }
                 else {
                     workout.resume()
+                }
+                if isGrantedNotificationAccess {
+                    createNotifications(workout)
                 }
                 timer = Timer.scheduledTimer(timeInterval: 1, target: self,
                                              selector: #selector(ViewController.processTimer),
