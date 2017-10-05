@@ -9,9 +9,10 @@
 import UIKit
 import AudioToolbox
 import CoreData
+import CoreLocation
 import UserNotifications
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
     var isGrantedNotificationAccess = false
     var workoutData:WorkoutData? // set by WorkoutsViewController before segway
@@ -48,7 +49,62 @@ class ViewController: UIViewController {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.fillLabels),
                                                name: .UIApplicationDidBecomeActive, object: nil)
-        //fillLabels()
+    }
+
+    let locationManager = CLLocationManager()
+    func enableLocationServices() {
+        locationManager.delegate = self
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            // Request when-in-use authorization initially
+            locationManager.requestAlwaysAuthorization()
+            break
+            
+        case .restricted, .denied:
+            // Disable location features
+            locationManager.stopUpdatingLocation()
+            break
+            
+        case .authorizedWhenInUse:
+            // Enable basic location features
+            setupLocationServices()
+            break
+            
+        case .authorizedAlways:
+            // Enable any of your app's location features
+            setupLocationServices()
+            break
+        }
+    }
+    func locationManager(_ manager: CLLocationManager,
+                         didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted, .denied:
+            // Disable your app's location features
+            locationManager.stopUpdatingLocation()
+            break
+            
+        case .authorizedWhenInUse:
+            // Enable only your app's when-in-use features.
+            setupLocationServices()
+            break
+            
+        case .authorizedAlways:
+            // Enable any of your app's location services.
+            setupLocationServices()
+            break
+            
+        case .notDetermined:
+            break
+            }
+    }
+    
+    func setupLocationServices() {
+        locationManager.activityType = .fitness
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
     }
 
     @objc func fillLabels() {
@@ -74,7 +130,9 @@ class ViewController: UIViewController {
         lblDescription.text = workout?.description
         lblDuration.text = "\(Int((workout?.duration)!) / TimeInterval.secondsPerMinute)"
         updateLabels()
-
+        if (workout?.calcDistance)! {
+            enableLocationServices()
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         fillLabels()

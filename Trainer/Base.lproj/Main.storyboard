@@ -385,8 +385,46 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="distanceCell" rowHeight="56" id="UwT-kE-AKA" userLabel="distanceCell" customClass="DistanceCell" customModule="Trainer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="56"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UwT-kE-AKA" id="0oT-Fv-fZd">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SsA-gN-JYw">
+                                            <rect key="frame" x="8" y="8" width="97" height="39.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="97" id="NiJ-I3-CQ1"/>
+                                            </constraints>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            <connections>
+                                                <action selector="changeDistance:" destination="voA-61-pU2" eventType="editingDidEnd" id="8wn-QI-GRv"/>
+                                            </connections>
+                                        </textField>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYV-PF-QR0">
+                                            <rect key="frame" x="121" y="17" width="40" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="fYV-PF-QR0" firstAttribute="leading" secondItem="SsA-gN-JYw" secondAttribute="trailing" constant="16" id="6MT-fI-6U5"/>
+                                        <constraint firstItem="fYV-PF-QR0" firstAttribute="centerY" secondItem="0oT-Fv-fZd" secondAttribute="centerY" id="Lkc-0D-bg6"/>
+                                        <constraint firstItem="SsA-gN-JYw" firstAttribute="leading" secondItem="0oT-Fv-fZd" secondAttribute="leadingMargin" id="ceQ-ii-4Em"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="SsA-gN-JYw" secondAttribute="bottom" id="pj6-yt-Pq1"/>
+                                        <constraint firstItem="SsA-gN-JYw" firstAttribute="top" secondItem="0oT-Fv-fZd" secondAttribute="topMargin" id="rir-Xv-DQV"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="txtDistance" destination="SsA-gN-JYw" id="NiN-eR-zqP"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="durationCell" rowHeight="217" id="8Ku-Eu-694" customClass="DurationPickerCell" customModule="Trainer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="217"/>
+                                <rect key="frame" x="0.0" y="128" width="375" height="217"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Ku-Eu-694" id="WAs-7q-HL7">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="216.5"/>

@@ -45,6 +45,18 @@ extension UIView {
     }
     
 }
+// Hide keyboard when user types somewhere else in view
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
 extension UIBarButtonItem {
     var view: UIView? {
         return value(forKey: "view") as? UIView

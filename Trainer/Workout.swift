@@ -13,6 +13,8 @@ class Workout {
     var description:String = ""
     var duration:TimeInterval = TimeInterval(0)
     var startTime:Date?
+    // calculate distance if the user specifies a distance for one or more phases
+    var calcDistance:Bool = false
     public var endTime:Date? {
         get {
             return data.endTime

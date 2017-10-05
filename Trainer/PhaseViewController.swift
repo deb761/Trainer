@@ -13,13 +13,16 @@ class PhaseViewController: UITableViewController {
     var activities:[Activity] = []
     var phase:PhaseData?
     
-    let timeSection = 0
-    let activitySection = 1
+    enum SectionEnum:Int {
+        case Duration = 0, Distance, Activity
+    }
 
     @IBOutlet weak var timePicker: UIDatePicker!
+    @IBOutlet weak var txtDistance: UITextField!
     
     var sections: [PhaseSection] = [
         PhaseSection(name: "Duration", activities: []),
+        PhaseSection(name: "Distance", activities: []),
         PhaseSection(name: "Activity", activities: ["Jog", "Run", "Walk"])
     ]
 
@@ -27,6 +30,7 @@ class PhaseViewController: UITableViewController {
         super.viewDidLoad()
 
         activities = DataAccess.getActivities()
+        self.hideKeyboardWhenTappedAround()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -41,22 +45,29 @@ class PhaseViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == activitySection && !sections[activitySection].collapsed {
-            return activities.count
-        }
-        else if section == timeSection && !sections[timeSection].collapsed {
-            return 1
+        switch SectionEnum(rawValue: section)! {
+        
+        case SectionEnum.Activity:
+            if !sections[section].collapsed {
+                return activities.count
+            }
+        
+        default:
+            if !sections[section].collapsed {
+                return 1
+            }
         }
         return 0
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == activitySection {
+        switch SectionEnum(rawValue: indexPath.section)! {
+        case SectionEnum.Activity:
             let cell = tableView.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath)
 
             let activity:String = activities[indexPath.row].name!
@@ -64,17 +75,24 @@ class PhaseViewController: UITableViewController {
             cell.textLabel?.text = activity
 
             return cell
+       
+        case SectionEnum.Duration:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "durationCell", for: indexPath) as! DurationPickerCell
+            cell.timePicker.countDownDuration = (phase?.duration)!
+            return cell
+            
+        case SectionEnum.Distance:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "distanceCell", for: indexPath) as! DistanceCell
+            cell.txtDistance.text = "\(phase?.distance ?? 0)"
+            return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "durationCell", for: indexPath) as! DurationPickerCell
-        cell.timePicker.countDownDuration = (phase?.duration)!
-        return cell
     }
 
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 2
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == timeSection {
+        if indexPath.section == SectionEnum.Duration.rawValue {
             return 216.0
         }
         return 40.0
@@ -85,9 +103,20 @@ class PhaseViewController: UITableViewController {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleTableViewHeader ??
             CollapsibleTableViewHeader(reuseIdentifier: "header")
         
-        var value = phase?.duration.format()
-        if section == activitySection {
+        var value:String?
+
+        switch SectionEnum(rawValue: section)! {
+        
+        case .Activity:
             value = phase?.activity?.name
+            
+        case .Duration:
+            value = phase?.duration.format()
+            
+        case .Distance:
+            if let distance = phase?.distance {
+                value = "\(distance) Miles"
+            }
         }
         header.textLabel?.text = "\(sections[section].name): \(value ?? "")"
         header.arrowLabel.text = ">"
@@ -116,7 +145,7 @@ class PhaseViewController: UITableViewController {
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return indexPath.section != timeSection
+        return indexPath.section == SectionEnum.Activity.rawValue
     }
 
 
@@ -132,9 +161,9 @@ class PhaseViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == activitySection {
+        if indexPath.section == SectionEnum.Activity.rawValue {
             phase?.activity = activities[indexPath.row]
-            tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+            tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
         }
     }
     /*
@@ -161,6 +190,12 @@ class PhaseViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func changeDistance(_ sender: UITextField) {
+        if let distance = Double(sender.text!) {
+            phase?.distance = distance
+            tableView.reloadSections(IndexSet(integer: SectionEnum.Distance.rawValue), with: .automatic)
+        }
+    }
     
     @IBAction func addActivity(_ sender: Any) {
         let alert = UIAlertController(title: "Add Activity", message: "Name", preferredStyle: .alert)

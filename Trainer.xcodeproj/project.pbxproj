@@ -32,6 +32,7 @@
 		87FD01111F6B852E0076D6E4 /* PhaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD010F1F6B852E0076D6E4 /* PhaseViewController.swift */; };
 		87FD01181F6B8B570076D6E4 /* SelectActionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD01171F6B8B570076D6E4 /* SelectActionHeader.swift */; };
 		87FD011A1F6C206D0076D6E4 /* PhaseSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD01191F6C206D0076D6E4 /* PhaseSection.swift */; };
+		87FED2001F85AC0900CBF258 /* DistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FED1FF1F85AC0900CBF258 /* DistanceCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		87FD010F1F6B852E0076D6E4 /* PhaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseViewController.swift; sourceTree = "<group>"; };
 		87FD01171F6B8B570076D6E4 /* SelectActionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectActionHeader.swift; sourceTree = "<group>"; };
 		87FD01191F6C206D0076D6E4 /* PhaseSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseSection.swift; sourceTree = "<group>"; };
+		87FED1FF1F85AC0900CBF258 /* DistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				87B8B8EE1F6D731C00A6989A /* DurationPickerCell.swift */,
 				87B8B8F81F6D9A2400A6989A /* RepeatCell.swift */,
 				87B8B8FA1F6DDC1500A6989A /* WorkoutNameCell.swift */,
+				87FED1FF1F85AC0900CBF258 /* DistanceCell.swift */,
 			);
 			path = Trainer;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				877952AB1F71ABDD00605317 /* Extensions.swift in Sources */,
 				87A4CF301F6AF8FE004D49D1 /* WorkoutsViewController.swift in Sources */,
 				87FD010C1F6B34AC0076D6E4 /* PhaseCell.swift in Sources */,
+				87FED2001F85AC0900CBF258 /* DistanceCell.swift in Sources */,
 				87FD01181F6B8B570076D6E4 /* SelectActionHeader.swift in Sources */,
 				87B8B8FB1F6DDC1500A6989A /* WorkoutNameCell.swift in Sources */,
 				87AD14851F644852009D778A /* MainViewController.swift in Sources */,

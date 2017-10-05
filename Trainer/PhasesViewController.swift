@@ -24,7 +24,8 @@ class PhasesViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationController?.isToolbarHidden = false
-        
+        self.hideKeyboardWhenTappedAround()
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
