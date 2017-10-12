@@ -8,9 +8,18 @@
 
 import Foundation
 
+// Use an enum to define how a phase ends: Duration met, Distance met,
+// either Duration or Distance met, or both Duration and Distance met
+public enum EndType:Int {
+    case Duration = 0, Distance, Either, Both
+}
+// Phase class to track the beginning, end, and progress of a phase
 public class Phase {
+    var endType:EndType = EndType.Duration
     var activity:String = ""
     var duration:TimeInterval = 0.0
+    var distance:Double = 0.0 // distance in meters
+    var traveled:Double = 0.0 // distance traveled in phase
     var elapsed:TimeInterval {
         get {
             return ttg - duration
@@ -27,10 +36,54 @@ public class Phase {
             return duration
         }
     }
+    let locale = Locale.current
+    var remaining:String {
+        get {
+            var dist = Measurement(value: distance - traveled, unit: UnitLength.meters)
+            if locale.usesMetricSystem {
+                dist = dist.converted(to: UnitLength.kilometers)
+            }
+            else {
+                dist = dist.converted(to: UnitLength.miles)
+            }
+            let formatter = MeasurementFormatter()
+            formatter.numberFormatter.maximumFractionDigits = 1
+            let distStr = formatter.string(from: dist)
+            switch endType {
+            case EndType.Duration:
+                return ttg.format() ?? "0:00"
+            case EndType.Distance:
+                return distStr
+            case EndType.Either:
+                return "\(ttg.format() ?? "0:00") or \(distStr)"
+            case EndType.Both:
+                return "\(ttg.format() ?? "0:00") and \(distStr)"
+            }
+        }
+    }
+    var ended:Bool {
+        get {
+            var timePassed = false
+            if let remaining = endTime?.timeIntervalSinceNow {
+                timePassed = remaining <= 0.0
+            }
+            switch endType {
+            case EndType.Duration:
+                return timePassed
+            case EndType.Distance:
+                return traveled >= distance
+            case EndType.Either:
+                return timePassed || (traveled >= distance)
+            case EndType.Both:
+                return timePassed && (traveled >= distance)
+            }
+        }
+    }
     // Use when the phase is paused
-    var timeRemaining:TimeInterval = 0.0
+    private var timeRemaining:TimeInterval = 0.0
     
     public init(data:PhaseData, rep:Int32 = 0) {
+        endType = EndType(rawValue: Int(data.end)) ?? EndType.Duration
         if let name = data.activity?.name {
             activity = name
             if rep > 0 {
@@ -38,10 +91,12 @@ public class Phase {
             }
         }
         duration = TimeInterval(data.duration)
+        distance = data.distance
     }
     // Set the phase endTime
     public func startAt(_ start:Date) {
         endTime = start + self.duration
+        traveled = 0.0
     }
     // Start the phase
     public func start() {
@@ -50,9 +105,21 @@ public class Phase {
     // Resume the phase
     public func resume() {
         endTime = Date() + timeRemaining
+        timeRemaining = 0.0
     }
-    // Update the phase ttg
+    // Store the phase ttg
     public func pause() {
-        timeRemaining = ttg
+        if endType == EndType.Distance {
+            timeRemaining = 42.0
+        }
+        else {
+            timeRemaining = ttg
+        }
+    }
+    // Update the distance traveled when the phase is not paused
+    public func addDistance(distance:Double) {
+        if timeRemaining != 0.0 {
+            traveled += distance
+        }
     }
 }

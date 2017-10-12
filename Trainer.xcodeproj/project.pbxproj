@@ -33,6 +33,7 @@
 		87FD01181F6B8B570076D6E4 /* SelectActionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD01171F6B8B570076D6E4 /* SelectActionHeader.swift */; };
 		87FD011A1F6C206D0076D6E4 /* PhaseSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD01191F6C206D0076D6E4 /* PhaseSection.swift */; };
 		87FED2001F85AC0900CBF258 /* DistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FED1FF1F85AC0900CBF258 /* DistanceCell.swift */; };
+		87FED2021F86B7BC00CBF258 /* PhaseEndCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FED2011F86B7BC00CBF258 /* PhaseEndCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		87FD01171F6B8B570076D6E4 /* SelectActionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectActionHeader.swift; sourceTree = "<group>"; };
 		87FD01191F6C206D0076D6E4 /* PhaseSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseSection.swift; sourceTree = "<group>"; };
 		87FED1FF1F85AC0900CBF258 /* DistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCell.swift; sourceTree = "<group>"; };
+		87FED2011F86B7BC00CBF258 /* PhaseEndCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseEndCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,21 +147,22 @@
 				87AD148E1F644852009D778A /* LaunchScreen.storyboard */,
 				87AD14911F644852009D778A /* Info.plist */,
 				87AD14891F644852009D778A /* Trainer.xcdatamodeld */,
-				87AD14B51F64788A009D778A /* Phase.swift */,
 				870193101F6722750095D847 /* Workout.swift */,
 				87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */,
 				87A4CF311F6B15F3004D49D1 /* WorkoutCell.swift */,
 				87FD01091F6B32830076D6E4 /* PhasesViewController.swift */,
 				87B8B8F61F6D8F4D00A6989A /* IntervalsViewController.swift */,
+				87AD14B51F64788A009D778A /* Phase.swift */,
 				87FD010B1F6B34AC0076D6E4 /* PhaseCell.swift */,
+				87FED1FF1F85AC0900CBF258 /* DistanceCell.swift */,
+				87FED2011F86B7BC00CBF258 /* PhaseEndCell.swift */,
+				87FD01191F6C206D0076D6E4 /* PhaseSection.swift */,
 				87FD010F1F6B852E0076D6E4 /* PhaseViewController.swift */,
 				87FD01171F6B8B570076D6E4 /* SelectActionHeader.swift */,
-				87FD01191F6C206D0076D6E4 /* PhaseSection.swift */,
 				87B8B8EA1F6C64FB00A6989A /* DataAccess.swift */,
 				87B8B8EE1F6D731C00A6989A /* DurationPickerCell.swift */,
 				87B8B8F81F6D9A2400A6989A /* RepeatCell.swift */,
 				87B8B8FA1F6DDC1500A6989A /* WorkoutNameCell.swift */,
-				87FED1FF1F85AC0900CBF258 /* DistanceCell.swift */,
 			);
 			path = Trainer;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				87B8B8FB1F6DDC1500A6989A /* WorkoutNameCell.swift in Sources */,
 				87AD14851F644852009D778A /* MainViewController.swift in Sources */,
 				87AD14831F644852009D778A /* AppDelegate.swift in Sources */,
+				87FED2021F86B7BC00CBF258 /* PhaseEndCell.swift in Sources */,
 				87B8B8EF1F6D731C00A6989A /* DurationPickerCell.swift in Sources */,
 				87B8B8F71F6D8F4D00A6989A /* IntervalsViewController.swift in Sources */,
 				87B8B8EB1F6C64FC00A6989A /* DataAccess.swift in Sources */,

@@ -188,7 +188,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="240" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CM9-5q-Ub3" userLabel="Lbl Interval Time">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="240" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="CM9-5q-Ub3" userLabel="Lbl Interval Time">
                                         <rect key="frame" x="0.0" y="196.5" width="343" height="95.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -368,8 +368,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activityCell" textLabel="3sJ-eN-ouG" style="IBUITableViewCellStyleDefault" id="qlo-dG-t2b">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="phaseEnd" id="bTi-fh-q2g" customClass="PhaseEndCell" customModule="Trainer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bTi-fh-q2g" id="NmQ-U1-bNP">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ulh-xW-u0e">
+                                            <rect key="frame" x="8" y="8" width="359" height="29"/>
+                                            <segments>
+                                                <segment title="Duration"/>
+                                                <segment title="Distance"/>
+                                                <segment title="Either"/>
+                                                <segment title="Both"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="endTypeChanged:" destination="voA-61-pU2" eventType="valueChanged" id="bc2-HS-kr0"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ulh-xW-u0e" firstAttribute="leading" secondItem="NmQ-U1-bNP" secondAttribute="leadingMargin" id="07F-Sp-n9r"/>
+                                        <constraint firstItem="ulh-xW-u0e" firstAttribute="top" secondItem="NmQ-U1-bNP" secondAttribute="topMargin" id="XhX-fL-B4N"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="ulh-xW-u0e" secondAttribute="bottom" id="ctE-iT-tHd"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ulh-xW-u0e" secondAttribute="trailing" id="jaw-HS-5wq"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="endTypes" destination="ulh-xW-u0e" id="rkb-fR-6Da"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activityCell" textLabel="3sJ-eN-ouG" style="IBUITableViewCellStyleDefault" id="qlo-dG-t2b">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qlo-dG-t2b" id="yGA-hs-8cC">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -386,7 +417,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="distanceCell" rowHeight="56" id="UwT-kE-AKA" userLabel="distanceCell" customClass="DistanceCell" customModule="Trainer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="56"/>
+                                <rect key="frame" x="0.0" y="116" width="375" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UwT-kE-AKA" id="0oT-Fv-fZd">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
@@ -399,7 +430,7 @@
                                             </constraints>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                             <connections>
                                                 <action selector="changeDistance:" destination="voA-61-pU2" eventType="editingDidEnd" id="8wn-QI-GRv"/>
                                             </connections>
@@ -424,7 +455,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="durationCell" rowHeight="217" id="8Ku-Eu-694" customClass="DurationPickerCell" customModule="Trainer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="128" width="375" height="217"/>
+                                <rect key="frame" x="0.0" y="172" width="375" height="217"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Ku-Eu-694" id="WAs-7q-HL7">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="216.5"/>
@@ -463,6 +494,14 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Hd-YD-pka" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="h4y-RC-kMA">
+                    <rect key="frame" x="0.0" y="0.0" width="121" height="28"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <segments>
+                        <segment title="First"/>
+                        <segment title="Second"/>
+                    </segments>
+                </segmentedControl>
             </objects>
             <point key="canvasLocation" x="1477.5999999999999" y="846.9265367316342"/>
         </scene>

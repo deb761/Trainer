@@ -12,18 +12,20 @@ class PhaseViewController: UITableViewController {
         
     var activities:[Activity] = []
     var phase:PhaseData?
+    var distance:Measurement<UnitLength>?
     
+    //User region setting
+    let locale = Locale.current
+
     enum SectionEnum:Int {
-        case Duration = 0, Distance, Activity
+        case End = 0, Activity, Duration, Distance
     }
 
-    @IBOutlet weak var timePicker: UIDatePicker!
-    @IBOutlet weak var txtDistance: UITextField!
-    
     var sections: [PhaseSection] = [
-        PhaseSection(name: "Duration", activities: []),
-        PhaseSection(name: "Distance", activities: []),
-        PhaseSection(name: "Activity", activities: ["Jog", "Run", "Walk"])
+        PhaseSection(name: "End Type"),
+        PhaseSection(name: "Activity"),
+        PhaseSection(name: "Duration"),
+        PhaseSection(name: "Distance")
     ]
 
     override func viewDidLoad() {
@@ -38,6 +40,21 @@ class PhaseViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let dist = phase?.distance {
+            distance = Measurement(value: dist, unit: UnitLength.meters)
+                
+            if locale.usesMetricSystem {
+                distance = distance!.converted(to: .kilometers)
+            }
+            else {
+                distance = distance!.converted(to: .miles)
+            }
+        }
+        if phase?.activity == nil {
+            sections[SectionEnum.Activity.rawValue].collapsed = false
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -45,7 +62,10 @@ class PhaseViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        /*if (phase?.end)! < 2 {
+            return 3
+        }*/
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,6 +87,11 @@ class PhaseViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch SectionEnum(rawValue: indexPath.section)! {
+        case SectionEnum.End:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "phaseEnd") as! PhaseEndCell
+            cell.endTypes.selectedSegmentIndex = Int(phase?.end ?? 0)
+            return cell
+            
         case SectionEnum.Activity:
             let cell = tableView.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath)
 
@@ -83,7 +108,12 @@ class PhaseViewController: UITableViewController {
             
         case SectionEnum.Distance:
             let cell = tableView.dequeueReusableCell(withIdentifier: "distanceCell", for: indexPath) as! DistanceCell
-            cell.txtDistance.text = "\(phase?.distance ?? 0)"
+            if EndType(rawValue: Int(phase?.end ?? 0)) == EndType.Duration {
+                cell.txtDistance.text = ""
+            }
+            else if let dist = distance {
+                cell.txtDistance.text = "\(dist.value)"
+            }
             return cell
         }
     }
@@ -107,15 +137,29 @@ class PhaseViewController: UITableViewController {
 
         switch SectionEnum(rawValue: section)! {
         
+        case .End:
+            value = "\(EndType(rawValue: Int(phase?.end ?? 0)) ?? EndType.Duration)"
+ 
         case .Activity:
             value = phase?.activity?.name
             
         case .Duration:
-            value = phase?.duration.format()
+            if EndType(rawValue: Int(phase?.end ?? 0)) == EndType.Distance {
+                value = "Not used"
+            }
+            else {
+                value = phase?.duration.format()
+            }
             
         case .Distance:
-            if let distance = phase?.distance {
-                value = "\(distance) Miles"
+            if EndType(rawValue: Int(phase?.end ?? 0)) == EndType.Duration {
+                value = "Not used"
+            }
+            else if let dist = distance {
+                value = "\(dist)"
+            }
+            else {
+                value = "Not set"
             }
         }
         header.textLabel?.text = "\(sections[section].name): \(value ?? "")"
@@ -190,9 +234,23 @@ class PhaseViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    @IBAction func endTypeChanged(_ sender: UISegmentedControl) {
+        phase?.end = Int32(sender.selectedSegmentIndex)
+        tableView.reloadData()
+    }
+    
     @IBAction func changeDistance(_ sender: UITextField) {
-        if let distance = Double(sender.text!) {
-            phase?.distance = distance
+        if let distance = Double(sender.text ?? "") {
+            if locale.usesMetricSystem {
+                self.distance = Measurement(value: distance, unit: UnitLength.kilometers)
+            }
+            else {
+                self.distance = Measurement(value: distance, unit: UnitLength.miles)
+            }
+            phase?.distance = (self.distance?.converted(to: .meters).value)!
+            print(phase?.distance ?? 0)
             tableView.reloadSections(IndexSet(integer: SectionEnum.Distance.rawValue), with: .automatic)
         }
     }

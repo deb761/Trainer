@@ -12,7 +12,8 @@ import CoreData
 import CoreLocation
 import UserNotifications
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelegate {
+    
 
     var isGrantedNotificationAccess = false
     var workoutData:WorkoutData? // set by WorkoutsViewController before segway
@@ -49,6 +50,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.fillLabels),
                                                name: .UIApplicationDidBecomeActive, object: nil)
+        
+        enableLocationServices()
     }
 
     let locationManager = CLLocationManager()
@@ -106,10 +109,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
     }
-
+    // Let the user know that a new phase is beginning
+    func processPhaseChange() {
+        if let phase = workout?.currentPhase {
+            let content = createContent(step: phase)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+            addNotification(trigger: trigger, content: content, identifier: "Phase \(workout?.phaseNum ?? 0)")
+        }
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        AudioServicesPlayAlertSound(SystemSoundID(1005))
+    }
+    // Let the user know the workout is complete
+    func processComplete() {
+        // Create complete notification
+        let content = UNMutableNotificationContent()
+        content.title = "Finished!"
+        content.body = "Workout over"
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
+        addNotification(trigger: trigger, content: content, identifier: "Complete")
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        AudioServicesPlayAlertSound(SystemSoundID(1005))
+        btnStart.title = "Start"
+    }
     @objc func fillLabels() {
         if let data = workoutData {
-            workout = Workout(data: data)
+            workout = Workout(data: data, delegate: self)
             if let remaining = workout?.endTime?.timeIntervalSinceNow {
                 if remaining > 0.0 {
                     if !timer.isValid {
@@ -156,11 +180,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func createNotifications(_ workout:Workout) {
         for phaseNum in 1...workout.phases.count - 1 {
             let phase = workout.phases[phaseNum]
-            let content = createContent(step: phase)
+            if phase.endType != EndType.Duration {
+                break
+            }
             let interval = workout.phases[phaseNum - 1].endTime!.timeIntervalSinceNow
-            if interval < 0 {
+            if interval <= 0 {
                 continue
             }
+            let content = createContent(step: phase)
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
             addNotification(trigger: trigger, content: content, identifier: "Phase \(phaseNum)")
         }
@@ -175,7 +202,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let content1 = UNMutableNotificationContent()
         content1.title = "Started!"
         content1.body = "Workout started"
-        let trigger1 = UNTimeIntervalNotificationTrigger(timeInterval: 15.0, repeats: false)
+        let trigger1 = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
         addNotification(trigger: trigger1, content: content1, identifier: "Started")
     }
     // Add notifications for the app
@@ -188,22 +215,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
     }
-    @IBAction func showNotice(_ sender: Any) {
-        let nc = NotificationCenter.default
-        nc.post(name:Notification.Name(rawValue:"MyNotification"),
-                object: nil,
-                userInfo: ["message":"Hello there!", "date":Date()])
-    }
     // Update the display and play the alert when the timer fires
     @objc func processTimer() {
         let now = Date()
         if (now < workout!.endTime!) {
-            workout!.update()
+            workout!.update(distance: 0.0)
             updateLabels()
         } else {
             timer.invalidate()
-            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-            AudioServicesPlayAlertSound(SystemSoundID(1005))
             btnEditStop.title = "Edit"
         }
     }
@@ -212,7 +231,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         lblTimeToGo.text = workout!.ttg.format()
         lblTimeElapsed.text = workout!.elapsed.format()
         lblActivity.text = workout!.currentPhase.activity
-        lblIntervalTimeToGo.text = workout!.currentPhase.ttg.format()
+        lblIntervalTimeToGo.text = workout!.currentPhase.remaining
     }
     // Start or pause the workout
     @IBAction func controlWorkout(_ sender: Any) {
@@ -273,6 +292,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let pvc = segue.destination as! PhasesViewController
         pvc.workout = workoutData
+    }
+    var lastLocation:CLLocation?
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if !(workout?.running ?? false) {
+            return
+        }
+        var distance:CLLocationDistance = 0.0
+        if let last = lastLocation {
+            distance = locations[0].distance(from: last)
+        }
+        if locations.count > 1 {
+            for idx in 1 ... locations.count - 1 {
+                distance += locations[idx - 1].distance(from: locations[idx])
+            }
+        }
+        lastLocation = locations.last
+        workout?.update(distance: distance)
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        let alert = UIAlertController(title: "Location Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

@@ -144,13 +144,36 @@ class DataAccess {
         }
         return workouts
     }
+    // Create the description for a phase
     static func getDescription(_ phase:PhaseData) -> String {
         if let intervals = phase as? Intervals {
             return getDescription(intervals)
         }
         let duration = phase.duration.format() ?? "*"
-        return phase.activity?.name ?? "" + " for \(duration)"
+        //User region setting
+        let locale = Locale.current
+        let dist = Measurement(value: phase.distance, unit: UnitLength.meters)
+        var distance = ""
+        let activity = phase.activity?.name ?? ""
+        if locale.usesMetricSystem {
+            distance = "\(dist.converted(to: UnitLength.kilometers))"
+        }
+        else {
+            distance = "\(dist.converted(to: UnitLength.miles))"
+        }
+        switch EndType(rawValue: Int(phase.end))! {
+        case EndType.Duration:
+            return activity + " for \(duration)"
+        case EndType.Distance:
+            return activity + " for \(distance)"
+        case EndType.Either:
+            return activity + " for \(duration) or \(distance)"
+        case EndType.Both:
+            return activity + " for \(duration) and \(distance)"
+        }
+        
     }
+    // Create the description for a set of intervals
     static func getDescription(_ intervals:Intervals) -> String {
         var description:String = "Repeat "
         for object in intervals.phases! {
@@ -162,6 +185,7 @@ class DataAccess {
         description += "\(intervals.repeats) times"
         return description
     }
+    // Create the description for a workout
     static func getDescription(_ workout:WorkoutData) -> String {
         var description = "Warmup \(workout.warmup?.activity?.name ?? "") for \(workout.warmup?.duration.format() ?? ""), "
         for object in workout.phases! {
@@ -176,12 +200,14 @@ class DataAccess {
         description += "Cooldown \(workout.cooldown?.activity?.name ?? "") for \(workout.cooldown?.duration.format() ?? "")"
         return description
     }
+    // Get the duration for a phase or set of intervals
     static func getDuration(_ phase:PhaseData) -> TimeInterval {
         if let intervals = phase as? Intervals {
             return getDuration(intervals)
         }
         return TimeInterval(phase.duration)
     }
+    // Get the duration for a set of intervals
     static func getDuration(_ intervals:Intervals) -> TimeInterval {
         var duration:Double = 0.0
         for object in intervals.phases! {
@@ -192,6 +218,7 @@ class DataAccess {
         duration *= Double(intervals.repeats)
         return TimeInterval(duration)
     }
+    // Get the duration for a workout
     static func getDuration(_ workout:WorkoutData) -> TimeInterval {
         var duration:TimeInterval = TimeInterval((workout.warmup?.duration)!)
         duration += TimeInterval((workout.cooldown?.duration) ?? 0.0)

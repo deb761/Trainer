@@ -10,12 +10,10 @@ import Foundation
 
 public struct PhaseSection {
     var name: String
-    var activities: [String]
     var collapsed: Bool
     
-    public init(name: String, activities: [String], collapsed: Bool = false) {
+    public init(name: String, collapsed: Bool = true) {
         self.name = name
-        self.activities = activities
         self.collapsed = collapsed
     }
 }

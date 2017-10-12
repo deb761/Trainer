@@ -8,7 +8,13 @@
 
 import Foundation
 import AudioToolbox
+import CoreLocation
 
+protocol WorkoutDelegate {
+    func processPhaseChange()
+    func processComplete()
+}
+// Workout class to track the progress of a workout
 class Workout {
     var description:String = ""
     var duration:TimeInterval = TimeInterval(0)
@@ -27,10 +33,13 @@ class Workout {
     var phases:[Phase] = []
     var currentPhase:Phase
     var data:WorkoutData
+    var delegate:WorkoutDelegate
+    var running:Bool = false
 
     // Read the plist for this project and fill in the settings
-    public init(data:WorkoutData) {
+    public init(data:WorkoutData, delegate:WorkoutDelegate) {
         self.data = data
+        self.delegate = delegate
         let warmup = Phase(data: (data.warmup)!)
         phases.append(warmup)
         duration = DataAccess.getDuration(data)
@@ -57,12 +66,13 @@ class Workout {
         if let remaining = endTime?.timeIntervalSinceNow {
             if remaining > 0.0 {
                 start(at: endTime! - duration)
-                update()
+                update(distance: 0.0)
             }
         }
     }
     // Start the workout
     public func start(at:Date? = nil) {
+        running = true
         phaseNum = 0
         currentPhase = phases[phaseNum]
 
@@ -81,19 +91,44 @@ class Workout {
         endTime = startTime! + duration
         data.last = endTime
     }
-    // Update the workout status
-    public func update() {
-        let now = Date()
-        var playAlert = false
-        currentPhase = phases[phaseNum]
-        while now >= currentPhase.endTime! {
-            playAlert = (currentPhase.endTime?.timeIntervalSinceNow)! < TimeInterval(1.0)
-            phaseNum += 1
-            currentPhase = phases[phaseNum]
+    // Calculate a new end time
+    func updateEndTime() {
+        endTime = currentPhase.endTime
+        if phaseNum + 1 < phases.count {
+            for idx in phaseNum + 1 ... phases.count - 1 {
+                endTime! += phases[idx].duration
+            }
         }
-        if playAlert {
-            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-            AudioServicesPlayAlertSound(SystemSoundID(1005))
+    }
+    // Update the workout status
+    public func update(distance:Double) {
+        currentPhase = phases[phaseNum]
+        var phaseChanged:Bool = false
+        while running {
+            currentPhase.addDistance(distance: distance)
+            if !currentPhase.ended {
+                break
+            }
+            if phaseNum + 1 < phases.count {
+                phaseNum += 1
+                currentPhase = phases[phaseNum]
+                if let endTime = currentPhase.endTime {
+                    if endTime.timeIntervalSinceNow > 0.0 {
+                        currentPhase.startAt(Date())
+                        updateEndTime()
+                    }
+                }
+                phaseChanged = true
+            }
+            else {
+                // workout is over
+                running = false
+                delegate.processComplete()
+                break
+            }
+        }
+        if phaseChanged {
+            delegate.processPhaseChange()
         }
     }
     // TTG stored when the workout is paused
@@ -105,8 +140,10 @@ class Workout {
     public func resume() {
         endTime = Date() + timeRemaining
         currentPhase.resume()
-        for num in phaseNum + 1 ... phases.count - 1 {
-            phases[num].startAt(phases[num - 1].endTime!)
+        if phaseNum + 1 < phases.count {
+            for num in phaseNum + 1 ... phases.count - 1 {
+                phases[num].startAt(phases[num - 1].endTime!)
+            }
         }
     }
     // stop the workout

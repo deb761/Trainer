@@ -10,6 +10,7 @@
     <entity name="PhaseData" representedClassName="PhaseData" syncable="YES" codeGenerationType="class">
         <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="duration" optional="YES" attributeType="Double" minValueString="30" defaultValueString="60" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="end" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" syncable="YES"/>
         <relationship name="cooldown" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutData" inverseName="cooldown" inverseEntity="WorkoutData" syncable="YES"/>
         <relationship name="intervals" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Intervals" inverseName="phases" inverseEntity="Intervals" syncable="YES"/>
@@ -27,7 +28,7 @@
     <elements>
         <element name="Activity" positionX="-63" positionY="63" width="128" height="58"/>
         <element name="Intervals" positionX="-108" positionY="-54" width="128" height="73"/>
-        <element name="PhaseData" positionX="259" positionY="-180" width="128" height="150"/>
+        <element name="PhaseData" positionX="259" positionY="-180" width="128" height="165"/>
         <element name="WorkoutData" positionX="-281" positionY="-240" width="128" height="30"/>
     </elements>
 </model>
