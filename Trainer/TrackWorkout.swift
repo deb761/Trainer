@@ -15,7 +15,7 @@ protocol WorkoutDelegate {
     func processComplete()
 }
 // Workout class to track the progress of a workout
-class Workout {
+class TrackWorkout {
     var description:String = ""
     var duration:TimeInterval = TimeInterval(0)
     var startTime:Date?
@@ -29,18 +29,29 @@ class Workout {
             data.endTime = newValue
         }
     }
-    var phaseNum:Int = 0
-    var phases:[Phase] = []
-    var currentPhase:Phase
-    var data:WorkoutData
+    var phaseNum:Int {
+        get {
+            return Int(data.phaseNum)
+        }
+        set {
+            data.phaseNum = Int32(newValue)
+        }
+    }
+    var phases:[TrackPhase] = []
+    var currentPhase:TrackPhase
+    var data:Workout
     var delegate:WorkoutDelegate
     var running:Bool = false
 
-    // Read the plist for this project and fill in the settings
-    public init(data:WorkoutData, delegate:WorkoutDelegate) {
+    /* Read the record for this project and fill in the settings.
+       This object will always be created when the workout is not running.
+       The main view controller will not allow the user to start another workout
+       while one is in progress.
+     */
+    public init(data:Workout, delegate:WorkoutDelegate) {
         self.data = data
         self.delegate = delegate
-        let warmup = Phase(data: (data.warmup)!)
+        let warmup = TrackPhase(data: (data.warmup)!)
         phases.append(warmup)
         duration = DataAccess.getDuration(data)
         description = DataAccess.getDescription(data)
@@ -49,18 +60,18 @@ class Workout {
                 if let phases = interval.phases {
                     for rep in 1 ... (interval.repeats) {
                         for phaseData in phases {
-                            let interval = Phase(data: phaseData as! PhaseData, rep: rep)
-                            self.phases.append(interval)
+                            let phase = TrackPhase(data: phaseData as! Phase, rep: rep)
+                            self.phases.append(phase)
                         }
                     }
                 }
             }
-            else if let phaseData = object as? PhaseData {
-                let phase = Phase(data: phaseData)
+            else if let phaseData = object as? Phase {
+                let phase = TrackPhase(data: phaseData)
                 phases.append(phase)
             }
         }
-        let cooldown = Phase(data: data.cooldown!)
+        let cooldown = TrackPhase(data: data.cooldown!)
         phases.append(cooldown)
         currentPhase = phases[0]
         if let remaining = endTime?.timeIntervalSinceNow {
@@ -117,6 +128,9 @@ class Workout {
                         currentPhase.startAt(Date())
                         updateEndTime()
                     }
+                }
+                else {
+                    currentPhase.start()
                 }
                 phaseChanged = true
             }

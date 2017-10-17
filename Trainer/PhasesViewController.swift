@@ -11,7 +11,7 @@ import UIKit
 class PhasesViewController: UITableViewController {
 
     // This is set by the view seguing to this view
-    var workout:WorkoutData!
+    var workout:Workout!
     
     enum Section: Int {
         case name = 0, warmup, workout, cooldown
@@ -80,7 +80,7 @@ class PhasesViewController: UITableViewController {
 
         // Configure the cell...
         cell.accessoryType = .disclosureIndicator
-        var phase:PhaseData?
+        var phase:Phase?
         
         switch section {
         case .name:
@@ -90,7 +90,7 @@ class PhasesViewController: UITableViewController {
         case .cooldown:
             phase = workout?.cooldown
         default:
-            phase = workout?.phases?[indexPath.row] as? PhaseData
+            phase = workout?.phases?[indexPath.row] as? Phase
         }
         
         if let phase = phase {
@@ -128,7 +128,7 @@ class PhasesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            if let phase = workout.phases?[indexPath.row] as? PhaseData {
+            if let phase = workout.phases?[indexPath.row] as? Phase {
                 if DataAccess.delete(phase) {
                     //tableView.reloadSections(IndexSet([phasesSection]), with: .automatic)
                     tableView.deleteRows(at: [indexPath], with: .fade)
@@ -209,7 +209,7 @@ class PhasesViewController: UITableViewController {
                     case .cooldown:
                         vc.phase = workout.cooldown
                     default:
-                        vc.phase = workout.phases?[indexPath.row] as? PhaseData
+                        vc.phase = workout.phases?[indexPath.row] as? Phase
                     }
                 }
                 else if let vc = segue.destination as? IntervalsViewController{

@@ -11,7 +11,7 @@ import UIKit
 class PhaseViewController: UITableViewController {
         
     var activities:[Activity] = []
-    var phase:PhaseData?
+    var phase:Phase?
     var distance:Measurement<UnitLength>?
     
     //User region setting

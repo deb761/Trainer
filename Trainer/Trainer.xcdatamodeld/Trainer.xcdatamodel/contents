@@ -3,32 +3,37 @@
     <entity name="Activity" representedClassName="Activity" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Intervals" representedClassName="Intervals" parentEntity="PhaseData" syncable="YES" codeGenerationType="class">
-        <attribute name="repeats" attributeType="Integer 32" minValueString="1" maxValueString="10" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="phases" toMany="YES" maxCount="20" deletionRule="Nullify" ordered="YES" destinationEntity="PhaseData" inverseName="intervals" inverseEntity="PhaseData" syncable="YES"/>
+    <entity name="Intervals" representedClassName="Intervals" parentEntity="Phase" syncable="YES" codeGenerationType="class">
+        <attribute name="phaseNum" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="repeatNum" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="repeats" attributeType="Integer 16" minValueString="1" maxValueString="10" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="phases" toMany="YES" maxCount="20" deletionRule="Nullify" ordered="YES" destinationEntity="Phase" inverseName="intervals" inverseEntity="Phase" syncable="YES"/>
     </entity>
-    <entity name="PhaseData" representedClassName="PhaseData" syncable="YES" codeGenerationType="class">
+    <entity name="Phase" representedClassName="Phase" syncable="YES" codeGenerationType="class">
         <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="duration" optional="YES" attributeType="Double" minValueString="30" defaultValueString="60" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="end" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="traveled" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" syncable="YES"/>
-        <relationship name="cooldown" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutData" inverseName="cooldown" inverseEntity="WorkoutData" syncable="YES"/>
+        <relationship name="cooldown" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="cooldown" inverseEntity="Workout" syncable="YES"/>
         <relationship name="intervals" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Intervals" inverseName="phases" inverseEntity="Intervals" syncable="YES"/>
-        <relationship name="warmup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutData" inverseName="warmup" inverseEntity="WorkoutData" syncable="YES"/>
-        <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutData" inverseName="phases" inverseEntity="WorkoutData" syncable="YES"/>
+        <relationship name="warmup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="warmup" inverseEntity="Workout" syncable="YES"/>
+        <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="phases" inverseEntity="Workout" syncable="YES"/>
     </entity>
-    <entity name="WorkoutData" representedClassName="WorkoutData" syncable="YES" codeGenerationType="class">
+    <entity name="Workout" representedClassName="Workout" syncable="YES" codeGenerationType="class">
         <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="last" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="cooldown" maxCount="1" deletionRule="Nullify" destinationEntity="PhaseData" inverseName="cooldown" inverseEntity="PhaseData" syncable="YES"/>
-        <relationship name="phases" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="PhaseData" inverseName="workout" inverseEntity="PhaseData" syncable="YES"/>
-        <relationship name="warmup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PhaseData" inverseName="warmup" inverseEntity="PhaseData" syncable="YES"/>
+        <attribute name="phaseNum" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="cooldown" maxCount="1" deletionRule="Nullify" destinationEntity="Phase" inverseName="cooldown" inverseEntity="Phase" syncable="YES"/>
+        <relationship name="phases" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Phase" inverseName="workout" inverseEntity="Phase" syncable="YES"/>
+        <relationship name="warmup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Phase" inverseName="warmup" inverseEntity="Phase" syncable="YES"/>
     </entity>
     <elements>
         <element name="Activity" positionX="-63" positionY="63" width="128" height="58"/>
-        <element name="Intervals" positionX="-108" positionY="-54" width="128" height="73"/>
-        <element name="PhaseData" positionX="259" positionY="-180" width="128" height="165"/>
-        <element name="WorkoutData" positionX="-281" positionY="-240" width="128" height="30"/>
+        <element name="Intervals" positionX="-108" positionY="-54" width="128" height="105"/>
+        <element name="Phase" positionX="259" positionY="-180" width="128" height="195"/>
+        <element name="Workout" positionX="-281" positionY="-240" width="128" height="150"/>
     </elements>
 </model>

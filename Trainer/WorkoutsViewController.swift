@@ -11,7 +11,7 @@ import CoreData
 
 class WorkoutsViewController: UITableViewController, UIGestureRecognizerDelegate {
 
-    var workouts:[WorkoutData] = []
+    var workouts:[Workout] = []
     // connect to core data
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 

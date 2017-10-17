@@ -14,18 +14,41 @@ public enum EndType:Int {
     case Duration = 0, Distance, Either, Both
 }
 // Phase class to track the beginning, end, and progress of a phase
-public class Phase {
+public class TrackPhase {
+    // Database record for the phase
+    var data:Phase!
     var endType:EndType = EndType.Duration
     var activity:String = ""
     var duration:TimeInterval = 0.0
-    var distance:Double = 0.0 // distance in meters
-    var traveled:Double = 0.0 // distance traveled in phase
+    var distance:Double { // distance in meters
+        get {
+            return data.distance
+        }
+        set {
+            data.distance = newValue
+        }
+    }
+    var traveled:Double { // distance traveled in phase
+        get {
+            return data.traveled
+        }
+        set {
+            data.traveled = newValue
+        }
+    }
     var elapsed:TimeInterval {
         get {
             return ttg - duration
         }
     }
-    var endTime:Date?
+    var endTime:Date? {
+        get {
+            return data.endTime
+        }
+        set {
+            data.endTime = newValue
+        }
+    }
     var ttg:TimeInterval {
         get {
             if let remaining = endTime?.timeIntervalSinceNow {
@@ -82,7 +105,8 @@ public class Phase {
     // Use when the phase is paused
     private var timeRemaining:TimeInterval = 0.0
     
-    public init(data:PhaseData, rep:Int32 = 0) {
+    public init(data:Phase, rep:Int16 = 0) {
+        self.data = data
         endType = EndType(rawValue: Int(data.end)) ?? EndType.Duration
         if let name = data.activity?.name {
             activity = name
@@ -91,7 +115,6 @@ public class Phase {
             }
         }
         duration = TimeInterval(data.duration)
-        distance = data.distance
     }
     // Set the phase endTime
     public func startAt(_ start:Date) {
@@ -118,7 +141,7 @@ public class Phase {
     }
     // Update the distance traveled when the phase is not paused
     public func addDistance(distance:Double) {
-        if timeRemaining != 0.0 {
+        if timeRemaining == 0.0 {
             traveled += distance
         }
     }

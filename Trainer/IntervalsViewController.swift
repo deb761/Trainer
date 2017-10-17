@@ -83,7 +83,7 @@ class IntervalsViewController: UITableViewController {
         cell = tableView.dequeueReusableCell(withIdentifier: "phaseCell", for: indexPath)
         if let cell = cell as? PhaseCell {
             cell.accessoryType = .disclosureIndicator
-            if let phase = intervals?.phases?[indexPath.row] as? PhaseData {
+            if let phase = intervals?.phases?[indexPath.row] as? Phase {
                 cell.detailTextLabel?.text = (phase.duration as TimeInterval).format()
                 cell.textLabel?.text = phase.activity?.name
             }
@@ -97,7 +97,7 @@ class IntervalsViewController: UITableViewController {
     // Increment or decrement the number of repeats
     @IBAction func changeRepeats(_ sender: Any) {
         if let stepper = sender as? UIStepper {
-            intervals.repeats = Int32(Int(stepper.value))
+            intervals.repeats = Int16(Int(stepper.value))
             tableView.reloadSections(IndexSet([0]), with: .automatic)
         }
     }
@@ -148,7 +148,7 @@ class IntervalsViewController: UITableViewController {
             vc.phase = DataAccess.addPhase("Phase", to:intervals)
         }
         else if let indexPath = tableView.indexPathForSelectedRow {
-            vc.phase = intervals.phases?[indexPath.row] as? PhaseData
+            vc.phase = intervals.phases?[indexPath.row] as? Phase
         }
     }
 

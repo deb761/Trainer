@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		870193111F6722750095D847 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870193101F6722750095D847 /* Workout.swift */; };
+		870193111F6722750095D847 /* TrackWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870193101F6722750095D847 /* TrackWorkout.swift */; };
 		877952AB1F71ABDD00605317 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877952AA1F71ABDD00605317 /* Extensions.swift */; };
 		87A4CF301F6AF8FE004D49D1 /* WorkoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */; };
 		87A4CF321F6B15F3004D49D1 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A4CF311F6B15F3004D49D1 /* WorkoutCell.swift */; };
@@ -19,7 +19,7 @@
 		87AD14901F644852009D778A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87AD148E1F644852009D778A /* LaunchScreen.storyboard */; };
 		87AD149B1F644852009D778A /* TrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD149A1F644852009D778A /* TrainerTests.swift */; };
 		87AD14A61F644852009D778A /* TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14A51F644852009D778A /* TrainerUITests.swift */; };
-		87AD14B61F64788A009D778A /* Phase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14B51F64788A009D778A /* Phase.swift */; };
+		87AD14B61F64788A009D778A /* TrackPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AD14B51F64788A009D778A /* TrackPhase.swift */; };
 		87B8B8EB1F6C64FC00A6989A /* DataAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B8B8EA1F6C64FB00A6989A /* DataAccess.swift */; };
 		87B8B8EF1F6D731C00A6989A /* DurationPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B8B8EE1F6D731C00A6989A /* DurationPickerCell.swift */; };
 		87B8B8F31F6D84C500A6989A /* clong.caf in Resources */ = {isa = PBXBuildFile; fileRef = 87B8B8F21F6D84C500A6989A /* clong.caf */; };
@@ -54,7 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		870193101F6722750095D847 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		870193101F6722750095D847 /* TrackWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackWorkout.swift; sourceTree = "<group>"; };
 		877952AA1F71ABDD00605317 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsViewController.swift; sourceTree = "<group>"; };
 		87A4CF311F6B15F3004D49D1 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 		87AD14A11F644852009D778A /* TrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		87AD14A51F644852009D778A /* TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerUITests.swift; sourceTree = "<group>"; };
 		87AD14A71F644852009D778A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		87AD14B51F64788A009D778A /* Phase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phase.swift; sourceTree = "<group>"; };
+		87AD14B51F64788A009D778A /* TrackPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPhase.swift; sourceTree = "<group>"; };
 		87B8B8EA1F6C64FB00A6989A /* DataAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccess.swift; sourceTree = "<group>"; };
 		87B8B8EE1F6D731C00A6989A /* DurationPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPickerCell.swift; sourceTree = "<group>"; };
 		87B8B8F21F6D84C500A6989A /* clong.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = clong.caf; sourceTree = "<group>"; };
@@ -147,12 +147,12 @@
 				87AD148E1F644852009D778A /* LaunchScreen.storyboard */,
 				87AD14911F644852009D778A /* Info.plist */,
 				87AD14891F644852009D778A /* Trainer.xcdatamodeld */,
-				870193101F6722750095D847 /* Workout.swift */,
+				870193101F6722750095D847 /* TrackWorkout.swift */,
+				87AD14B51F64788A009D778A /* TrackPhase.swift */,
 				87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */,
 				87A4CF311F6B15F3004D49D1 /* WorkoutCell.swift */,
 				87FD01091F6B32830076D6E4 /* PhasesViewController.swift */,
 				87B8B8F61F6D8F4D00A6989A /* IntervalsViewController.swift */,
-				87AD14B51F64788A009D778A /* Phase.swift */,
 				87FD010B1F6B34AC0076D6E4 /* PhaseCell.swift */,
 				87FED1FF1F85AC0900CBF258 /* DistanceCell.swift */,
 				87FED2011F86B7BC00CBF258 /* PhaseEndCell.swift */,
@@ -334,10 +334,10 @@
 				87B8B8EF1F6D731C00A6989A /* DurationPickerCell.swift in Sources */,
 				87B8B8F71F6D8F4D00A6989A /* IntervalsViewController.swift in Sources */,
 				87B8B8EB1F6C64FC00A6989A /* DataAccess.swift in Sources */,
-				87AD14B61F64788A009D778A /* Phase.swift in Sources */,
+				87AD14B61F64788A009D778A /* TrackPhase.swift in Sources */,
 				87B8B8F91F6D9A2400A6989A /* RepeatCell.swift in Sources */,
 				87FD01111F6B852E0076D6E4 /* PhaseViewController.swift in Sources */,
-				870193111F6722750095D847 /* Workout.swift in Sources */,
+				870193111F6722750095D847 /* TrackWorkout.swift in Sources */,
 				87A4CF321F6B15F3004D49D1 /* WorkoutCell.swift in Sources */,
 				87FD010A1F6B32830076D6E4 /* PhasesViewController.swift in Sources */,
 				87FD011A1F6C206D0076D6E4 /* PhaseSection.swift in Sources */,

@@ -61,11 +61,11 @@ class DataAccess {
         return activities
     }
     
-    static func addPhase(_ name:String, to:NSManagedObject? = nil) -> PhaseData {
+    static func addPhase(_ name:String, to:NSManagedObject? = nil) -> Phase {
         let context = appDelegate.persistentContainer.viewContext
-        let newPhase = NSEntityDescription.insertNewObject(forEntityName: "PhaseData", into: context) as! PhaseData
+        let newPhase = NSEntityDescription.insertNewObject(forEntityName: "Phase", into: context) as! Phase
         newPhase.setValue(300.0, forKey: "duration")
-        if let workout = to as? WorkoutData {
+        if let workout = to as? Workout {
             newPhase.workout = workout
         } else if let intervals = to as? Intervals {
             newPhase.intervals = intervals
@@ -78,7 +78,7 @@ class DataAccess {
         }
         return newPhase
     }
-    static func delete(_ phase:PhaseData) -> Bool {
+    static func delete(_ phase:Phase) -> Bool {
         let context = appDelegate.persistentContainer.viewContext
         context.delete(phase)
         do {
@@ -103,9 +103,9 @@ class DataAccess {
         return intervals as! Intervals
     }
 
-    static func addWorkout(_ name:String) -> WorkoutData {
+    static func addWorkout(_ name:String) -> Workout {
         let context = appDelegate.persistentContainer.viewContext
-        let newWorkout = NSEntityDescription.insertNewObject(forEntityName: "WorkoutData", into: context) as! WorkoutData
+        let newWorkout = NSEntityDescription.insertNewObject(forEntityName: "Workout", into: context) as! Workout
         newWorkout.setValue(name, forKey: "name")
         newWorkout.warmup = DataAccess.addPhase("Warmup")
         newWorkout.cooldown = DataAccess.addPhase("Cooldown")
@@ -118,7 +118,7 @@ class DataAccess {
         return newWorkout
     }
 
-    static func deleteWorkout(_ workout:WorkoutData) -> Bool {
+    static func deleteWorkout(_ workout:Workout) -> Bool {
         let context = appDelegate.persistentContainer.viewContext
         context.delete(workout)
         do {
@@ -130,22 +130,22 @@ class DataAccess {
         return false
     }
 
-    static func getWorkouts() -> [WorkoutData] {
+    static func getWorkouts() -> [Workout] {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkoutData")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Workout")
         request.returnsObjectsAsFaults = false
-        var workouts:[WorkoutData] = []
+        var workouts:[Workout] = []
         
         do {
-            workouts = try context.fetch(request) as! [WorkoutData]
+            workouts = try context.fetch(request) as! [Workout]
         } catch let error as NSError {
             print("There was an error getting Workouts: \(error.userInfo)")
         }
         return workouts
     }
     // Create the description for a phase
-    static func getDescription(_ phase:PhaseData) -> String {
+    static func getDescription(_ phase:Phase) -> String {
         if let intervals = phase as? Intervals {
             return getDescription(intervals)
         }
@@ -177,7 +177,7 @@ class DataAccess {
     static func getDescription(_ intervals:Intervals) -> String {
         var description:String = "Repeat "
         for object in intervals.phases! {
-            if let phase = object as? PhaseData {
+            if let phase = object as? Phase {
                 let duration = phase.duration.format() ?? "*"
                 description += "\(phase.activity?.name ?? "") \(duration), "
             }
@@ -186,13 +186,13 @@ class DataAccess {
         return description
     }
     // Create the description for a workout
-    static func getDescription(_ workout:WorkoutData) -> String {
+    static func getDescription(_ workout:Workout) -> String {
         var description = "Warmup \(workout.warmup?.activity?.name ?? "") for \(workout.warmup?.duration.format() ?? ""), "
         for object in workout.phases! {
             if let intervals = object as? Intervals {
                 description += getDescription(intervals) + ", "
             }
-            else if let phase = object as? PhaseData {
+            else if let phase = object as? Phase {
                 let duration = phase.duration.format() ?? "*"
                 description += "\(phase.activity?.name ?? "Not set") \(duration), "
             }
@@ -201,7 +201,7 @@ class DataAccess {
         return description
     }
     // Get the duration for a phase or set of intervals
-    static func getDuration(_ phase:PhaseData) -> TimeInterval {
+    static func getDuration(_ phase:Phase) -> TimeInterval {
         if let intervals = phase as? Intervals {
             return getDuration(intervals)
         }
@@ -211,7 +211,7 @@ class DataAccess {
     static func getDuration(_ intervals:Intervals) -> TimeInterval {
         var duration:Double = 0.0
         for object in intervals.phases! {
-            if let phase = object as? PhaseData {
+            if let phase = object as? Phase {
                 duration += phase.duration
             }
         }
@@ -219,11 +219,11 @@ class DataAccess {
         return TimeInterval(duration)
     }
     // Get the duration for a workout
-    static func getDuration(_ workout:WorkoutData) -> TimeInterval {
+    static func getDuration(_ workout:Workout) -> TimeInterval {
         var duration:TimeInterval = TimeInterval((workout.warmup?.duration)!)
         duration += TimeInterval((workout.cooldown?.duration) ?? 0.0)
         for object in workout.phases! {
-            if let phase = object as? PhaseData {
+            if let phase = object as? Phase {
                 duration += DataAccess.getDuration(phase)
             }
         }
