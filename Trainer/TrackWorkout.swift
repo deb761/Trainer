@@ -16,9 +16,19 @@ protocol WorkoutDelegate {
 }
 // Workout class to track the progress of a workout
 class TrackWorkout {
-    var description:String = ""
-    var duration:TimeInterval = TimeInterval(0)
+    public var description:String {
+        get {
+            return data.description
+        }
+    }
+    public var duration:TimeInterval {
+        get {
+            return data.time
+        }
+    }
     var startTime:Date?
+    private var time:TimeInterval = 0.0// time spent in the workout, available as elapsed
+    private var timeStamp:Date? // last update time
     // calculate distance if the user specifies a distance for one or more phases
     var calcDistance:Bool = false
     public var endTime:Date? {
@@ -38,7 +48,7 @@ class TrackWorkout {
         }
     }
     var phases:[TrackPhase] = []
-    var currentPhase:TrackPhase
+    var currentPhase:TrackPhase?
     var data:Workout
     var delegate:WorkoutDelegate
     var running:Bool = false
@@ -48,20 +58,16 @@ class TrackWorkout {
        The main view controller will not allow the user to start another workout
        while one is in progress.
      */
-    public init(data:Workout, delegate:WorkoutDelegate) {
-        self.data = data
-        self.delegate = delegate
+    fileprivate func createPhases(_ data: Workout) {
         let warmup = TrackPhase(data: (data.warmup)!)
         phases.append(warmup)
-        duration = DataAccess.getDuration(data)
-        description = DataAccess.getDescription(data)
         for object in data.phases! {
             if let interval = object as? Intervals {
-                if let phases = interval.phases {
+                if let iphases = interval.phases {
                     for rep in 1 ... (interval.repeats) {
-                        for phaseData in phases {
+                        for phaseData in iphases {
                             let phase = TrackPhase(data: phaseData as! Phase, rep: rep)
-                            self.phases.append(phase)
+                            phases.append(phase)
                         }
                     }
                 }
@@ -81,8 +87,14 @@ class TrackWorkout {
             }
         }
     }
+    
+    public init(data:Workout, delegate:WorkoutDelegate) {
+        self.data = data
+        self.delegate = delegate
+    }
     // Start the workout
     public func start(at:Date? = nil) {
+        createPhases(data)
         running = true
         phaseNum = 0
         currentPhase = phases[phaseNum]
@@ -98,13 +110,14 @@ class TrackWorkout {
             phase.startAt(startTime! + interval)
             interval += phase.duration
         }
-        currentPhase.start()
+        currentPhase!.start()
         endTime = startTime! + duration
         data.last = endTime
+        timeStamp = Date()
     }
     // Calculate a new end time
     func updateEndTime() {
-        endTime = currentPhase.endTime
+        endTime = currentPhase?.endTime
         if phaseNum + 1 < phases.count {
             for idx in phaseNum + 1 ... phases.count - 1 {
                 endTime! += phases[idx].duration
@@ -113,24 +126,28 @@ class TrackWorkout {
     }
     // Update the workout status
     public func update(distance:Double) {
+        // update time
+        let now = Date()
+        time += now.timeIntervalSince(timeStamp!)
+        timeStamp = now
         currentPhase = phases[phaseNum]
         var phaseChanged:Bool = false
         while running {
-            currentPhase.addDistance(distance: distance)
-            if !currentPhase.ended {
+            currentPhase!.addDistance(distance: distance)
+            if !currentPhase!.ended {
                 break
             }
             if phaseNum + 1 < phases.count {
                 phaseNum += 1
                 currentPhase = phases[phaseNum]
-                if let endTime = currentPhase.endTime {
+                if let endTime = currentPhase!.endTime {
                     if endTime.timeIntervalSinceNow > 0.0 {
-                        currentPhase.startAt(Date())
+                        currentPhase!.startAt(Date())
                         updateEndTime()
                     }
                 }
                 else {
-                    currentPhase.start()
+                    currentPhase!.start()
                 }
                 phaseChanged = true
             }
@@ -149,11 +166,12 @@ class TrackWorkout {
     var timeRemaining:TimeInterval = 0
     public func pause() {
         timeRemaining = ttg
-        currentPhase.pause()
+        currentPhase?.pause()
     }
     public func resume() {
-        endTime = Date() + timeRemaining
-        currentPhase.resume()
+        timeStamp = Date()
+        endTime = timeStamp! + timeRemaining
+        currentPhase?.resume()
         if phaseNum + 1 < phases.count {
             for num in phaseNum + 1 ... phases.count - 1 {
                 phases[num].startAt(phases[num - 1].endTime!)
@@ -174,9 +192,15 @@ class TrackWorkout {
             return duration
         }
     }
+    // time spent in the workout
     public var elapsed:TimeInterval {
         get {
-            return duration - ttg
+            return time
+        }
+    }
+    public var ended:Bool {
+        get {
+            return !running
         }
     }
 }

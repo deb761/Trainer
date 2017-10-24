@@ -144,24 +144,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
                 ViewController.workout = TrackWorkout(data: data, delegate: self)
             }
         }
-        if let remaining = ViewController.workout?.endTime?.timeIntervalSinceNow {
-            if remaining > 0.0 {
-                if !timer.isValid {
-                    timer = Timer.scheduledTimer(timeInterval: 1, target: self,
-                                                 selector: #selector(ViewController.processTimer),
-                                                 userInfo: nil, repeats: true)
-                    timer.fire()
-                }
-                btnStart.title = "Pause"
-                btnEditStop.title = "Stop"
+        if !(ViewController.workout?.ended)! {
+            if !timer.isValid {
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self,
+                                             selector: #selector(ViewController.processTimer),
+                                             userInfo: nil, repeats: true)
+                timer.fire()
             }
+            btnStart.title = "Pause"
+            btnEditStop.title = "Stop"
         }
         else {
             btnStart.title = "Start"
             btnEditStop.title = "Edit"
         }
         lblDescription.text = ViewController.workout?.description
-        lblDuration.text = "\(Int((ViewController.workout?.duration)!) / TimeInterval.secondsPerMinute)"
+        if let duration = ViewController.workout?.duration {
+            if duration.isNaN {
+                lblDuration.text = "--"
+            }
+            else {
+                lblDuration.text = "\(Int(duration) / TimeInterval.secondsPerMinute)"
+            }
+        }
         updateLabels()
         if (ViewController.workout?.calcDistance)! {
             enableLocationServices()
@@ -180,7 +185,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
     func createContent(step:TrackPhase) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = step.activity
-        content.body = step.duration.format()!
+        content.body = step.data.description
         //content.sound = UNNotificationSound.default()
         content.sound = UNNotificationSound(named: "clong.caf")
         return content
@@ -201,12 +206,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
             addNotification(trigger: trigger, content: content, identifier: "Phase \(phaseNum)")
         }
         // Create complete notification
-        let content = UNMutableNotificationContent()
-        content.title = "Finished!"
-        content.body = "Workout over"
-        content.sound = UNNotificationSound(named: "clong.caf")
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: workout.endTime!.timeIntervalSinceNow, repeats: false)
-        addNotification(trigger: trigger, content: content, identifier: "Complete")
+        let ttg = workout.endTime!.timeIntervalSinceNow
+        if ttg > 0 {
+            let content = UNMutableNotificationContent()
+            content.title = "Finished!"
+            content.body = "Workout over"
+            content.sound = UNNotificationSound(named: "clong.caf")
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: workout.endTime!.timeIntervalSinceNow, repeats: false)
+            addNotification(trigger: trigger, content: content, identifier: "Complete")
+        }
 
         // Create start notification
         let content1 = UNMutableNotificationContent()
@@ -227,8 +235,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
     }
     // Update the display and play the alert when the timer fires
     @objc func processTimer() {
-        let now = Date()
-        if (now < ViewController.workout!.endTime!) {
+        
+        if (!ViewController.workout!.ended) {
             ViewController.workout!.update(distance: 0.0)
             updateLabels()
         } else {
@@ -239,17 +247,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
     // Update the labels
     func updateLabels() {
         if let workout = ViewController.workout {
-            lblTimeToGo.text = workout.ttg.format()
+            if !workout.ttg.isNaN {
+                lblTimeToGo.text = workout.ttg.format()
+            }
+            else {
+                lblTimeToGo.text = "--"
+            }
             lblTimeElapsed.text = workout.elapsed.format()
-            lblActivity.text = workout.currentPhase.activity
-            lblIntervalTimeToGo.text = workout.currentPhase.remaining
+            lblActivity.text = workout.currentPhase?.activity
+            lblIntervalTimeToGo.text = workout.currentPhase?.remaining
         }
     }
     // Start or pause the workout
     @IBAction func controlWorkout(_ sender: Any) {
         if let workout = ViewController.workout {
             if !timer.isValid {
-                if workout.startTime == nil {
+                if !workout.running {
                     workout.start()
                     workoutData?.last = workout.endTime
                 }

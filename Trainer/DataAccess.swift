@@ -144,89 +144,107 @@ class DataAccess {
         }
         return workouts
     }
-    // Create the description for a phase
-    static func getDescription(_ phase:Phase) -> String {
-        if let intervals = phase as? Intervals {
-            return getDescription(intervals)
-        }
-        let duration = phase.duration.format() ?? "*"
-        //User region setting
-        let locale = Locale.current
-        let dist = Measurement(value: phase.distance, unit: UnitLength.meters)
-        var distance = ""
-        let activity = phase.activity?.name ?? ""
-        if locale.usesMetricSystem {
-            distance = "\(dist.converted(to: UnitLength.kilometers))"
-        }
-        else {
-            distance = "\(dist.converted(to: UnitLength.miles))"
-        }
-        switch EndType(rawValue: Int(phase.end))! {
-        case EndType.Duration:
-            return activity + " for \(duration)"
-        case EndType.Distance:
-            return activity + " for \(distance)"
-        case EndType.Either:
-            return activity + " for \(duration) or \(distance)"
-        case EndType.Both:
-            return activity + " for \(duration) and \(distance)"
-        }
-        
-    }
-    // Create the description for a set of intervals
-    static func getDescription(_ intervals:Intervals) -> String {
-        var description:String = "Repeat "
-        for object in intervals.phases! {
-            if let phase = object as? Phase {
-                let duration = phase.duration.format() ?? "*"
-                description += "\(phase.activity?.name ?? "") \(duration), "
+}
+extension Phase {
+    // Text description for a phase
+    public override var description:String {
+        get {
+            let time = self.duration.format() ?? "*"
+            //User region setting
+            let locale = Locale.current
+            let dist = Measurement(value: self.distance, unit: UnitLength.meters)
+            var distance = ""
+            let activity = self.activity?.name ?? ""
+            if locale.usesMetricSystem {
+                distance = "\(dist.converted(to: UnitLength.kilometers))"
+            }
+            else {
+                distance = "\(dist.converted(to: UnitLength.miles))"
+            }
+            switch EndType(rawValue: Int(self.end))! {
+            case EndType.Duration:
+                return activity + " for \(time)"
+            case EndType.Distance:
+                return activity + " for \(distance)"
+            case EndType.Either:
+                return activity + " for \(time) or \(distance)"
+            case EndType.Both:
+                return activity + " for \(time) and \(distance)"
             }
         }
-        description += "\(intervals.repeats) times"
-        return description
     }
-    // Create the description for a workout
-    static func getDescription(_ workout:Workout) -> String {
-        var description = "Warmup \(workout.warmup?.activity?.name ?? "") for \(workout.warmup?.duration.format() ?? ""), "
-        for object in workout.phases! {
-            if let intervals = object as? Intervals {
-                description += getDescription(intervals) + ", "
+    // Expected time for a phase or NaN if based only on
+    // distance
+    @objc public var time:TimeInterval {
+        get {
+            if self.end == Int32(EndType.Distance.rawValue) {
+                return Double.nan
             }
-            else if let phase = object as? Phase {
-                let duration = phase.duration.format() ?? "*"
-                description += "\(phase.activity?.name ?? "Not set") \(duration), "
-            }
+            return TimeInterval(duration)
         }
-        description += "Cooldown \(workout.cooldown?.activity?.name ?? "") for \(workout.cooldown?.duration.format() ?? "")"
-        return description
     }
-    // Get the duration for a phase or set of intervals
-    static func getDuration(_ phase:Phase) -> TimeInterval {
-        if let intervals = phase as? Intervals {
-            return getDuration(intervals)
-        }
-        return TimeInterval(phase.duration)
-    }
-    // Get the duration for a set of intervals
-    static func getDuration(_ intervals:Intervals) -> TimeInterval {
-        var duration:Double = 0.0
-        for object in intervals.phases! {
-            if let phase = object as? Phase {
-                duration += phase.duration
+}
+extension Intervals {
+    // Text description for intervals
+    public override var description:String {
+        get {
+            var text:String = "Repeat "
+            for object in self.phases! {
+                if let phase = object as? Phase {
+                    text += "\(phase.description), "
+                }
             }
+            text += "\(self.repeats) times"
+            return text
         }
-        duration *= Double(intervals.repeats)
-        return TimeInterval(duration)
     }
-    // Get the duration for a workout
-    static func getDuration(_ workout:Workout) -> TimeInterval {
-        var duration:TimeInterval = TimeInterval((workout.warmup?.duration)!)
-        duration += TimeInterval((workout.cooldown?.duration) ?? 0.0)
-        for object in workout.phases! {
-            if let phase = object as? Phase {
-                duration += DataAccess.getDuration(phase)
+    // Expected time for an interval or NaN if based only on
+    // distance
+    public override var time:TimeInterval {
+        get {
+            duration = 0.0
+            for object in self.phases! {
+                if let phase = object as? Phase {
+                    duration += phase.duration
+                }
             }
+            duration *= Double(self.repeats)
+            return TimeInterval(duration)
         }
-        return duration
+    }
+}
+extension Workout {
+    // Text description for a workout
+    public override var description:String {
+        get {
+            var text = "Warmup \(warmup?.activity?.name ?? "") for \(warmup?.duration.format() ?? ""), "
+            for object in phases! {
+                if let intervals = object as? Intervals {
+                    text += intervals.description + ", "
+                }
+                else if let phase = object as? Phase {
+                    text += "\(phase.description), "
+                }
+            }
+            text += "Cooldown \(cooldown?.description ?? "")"
+            return text
+        }
+    }
+    // Expected time for a workout or NaN if based only on
+    // distance
+    public var time:TimeInterval {
+        get {
+            var duration:TimeInterval = TimeInterval((warmup?.duration)!)
+            duration += TimeInterval((cooldown?.duration) ?? 0.0)
+            for object in phases! {
+                if let phase = object as? Phase {
+                    duration += phase.time
+                    if duration.isNaN {
+                        break
+                    }
+                }
+            }
+            return duration
+        }
     }
 }

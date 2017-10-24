@@ -94,8 +94,15 @@ class PhasesViewController: UITableViewController {
         }
         
         if let phase = phase {
-            cell.detailTextLabel?.text = DataAccess.getDuration(phase).format()
-            cell.textLabel?.text = DataAccess.getDescription(phase)
+            let duration = phase.time
+            if !duration.isNaN {
+                cell.detailTextLabel?.text = duration.format()
+            }
+            else {
+                cell.detailTextLabel?.text = ""
+            }
+
+            cell.textLabel?.text = phase.description
         }
         else if let cell = cell as? WorkoutNameCell {
             cell.txtName.text = workout.name

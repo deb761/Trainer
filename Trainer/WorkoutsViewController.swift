@@ -62,8 +62,14 @@ class WorkoutsViewController: UITableViewController, UIGestureRecognizerDelegate
             if let name = workout.name {
                 cell.lblTitle?.text = name
             }
-            cell.lblDuration?.text = DataAccess.getDuration(workout).format() ?? ""
-            cell.lblDescription?.text = DataAccess.getDescription(workout)
+            let duration = workout.time
+            if duration.isNaN {
+                cell.lblDuration?.text = "--"
+            }
+            else {
+                cell.lblDuration?.text = duration.format() ?? "--"
+            }
+            cell.lblDescription?.text = workout.description
             cell.lblLast?.text = "Never"
             if let last = workout.last {
                 cell.lblLast?.text = last.format()

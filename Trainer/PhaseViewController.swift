@@ -103,7 +103,12 @@ class PhaseViewController: UITableViewController {
        
         case SectionEnum.Duration:
             let cell = tableView.dequeueReusableCell(withIdentifier: "durationCell", for: indexPath) as! DurationPickerCell
-            cell.timePicker.countDownDuration = (phase?.duration)!
+            if let duration = phase?.duration {
+                if !duration.isNaN {
+                    cell.timePicker.countDownDuration = (phase?.duration)!
+                }
+            }
+            
             return cell
             
         case SectionEnum.Distance:

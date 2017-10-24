@@ -123,7 +123,7 @@ public class TrackPhase {
     }
     // Start the phase
     public func start() {
-
+        endTime = Date() + self.duration
     }
     // Resume the phase
     public func resume() {
