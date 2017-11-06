@@ -13,6 +13,45 @@ import Foundation
 public enum EndType:Int {
     case Duration = 0, Distance, Either, Both
 }
+extension Phase {
+    // Text description for a phase
+    public override var description:String {
+        get {
+            let time = self.duration.format() ?? "*"
+            //User region setting
+            let locale = Locale.current
+            let dist = Measurement(value: self.distance, unit: UnitLength.meters)
+            var distance = ""
+            let activity = self.activity?.name ?? ""
+            if locale.usesMetricSystem {
+                distance = "\(dist.converted(to: UnitLength.kilometers))"
+            }
+            else {
+                distance = "\(dist.converted(to: UnitLength.miles))"
+            }
+            switch EndType(rawValue: Int(self.end))! {
+            case EndType.Duration:
+                return activity + " for \(time)"
+            case EndType.Distance:
+                return activity + " for \(distance)"
+            case EndType.Either:
+                return activity + " for \(time) or \(distance)"
+            case EndType.Both:
+                return activity + " for \(time) and \(distance)"
+            }
+        }
+    }
+    // Expected time for a phase or NaN if based only on
+    // distance
+    @objc public var time:TimeInterval {
+        get {
+            if self.end == Int32(EndType.Distance.rawValue) {
+                return Double.nan
+            }
+            return TimeInterval(duration)
+        }
+    }
+}
 // Phase class to track the beginning, end, and progress of a phase
 public class TrackPhase {
     // Database record for the phase

@@ -27,6 +27,7 @@
 		87B8B8F71F6D8F4D00A6989A /* IntervalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B8B8F61F6D8F4D00A6989A /* IntervalsViewController.swift */; };
 		87B8B8F91F6D9A2400A6989A /* RepeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B8B8F81F6D9A2400A6989A /* RepeatCell.swift */; };
 		87B8B8FB1F6DDC1500A6989A /* WorkoutNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B8B8FA1F6DDC1500A6989A /* WorkoutNameCell.swift */; };
+		87D3C9ED1FACBE6D0074C7AC /* Intervals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D3C9EC1FACBE6D0074C7AC /* Intervals.swift */; };
 		87FD010A1F6B32830076D6E4 /* PhasesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD01091F6B32830076D6E4 /* PhasesViewController.swift */; };
 		87FD010C1F6B34AC0076D6E4 /* PhaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD010B1F6B34AC0076D6E4 /* PhaseCell.swift */; };
 		87FD01111F6B852E0076D6E4 /* PhaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD010F1F6B852E0076D6E4 /* PhaseViewController.swift */; };
@@ -80,6 +81,7 @@
 		87B8B8F61F6D8F4D00A6989A /* IntervalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalsViewController.swift; sourceTree = "<group>"; };
 		87B8B8F81F6D9A2400A6989A /* RepeatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatCell.swift; sourceTree = "<group>"; };
 		87B8B8FA1F6DDC1500A6989A /* WorkoutNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutNameCell.swift; sourceTree = "<group>"; };
+		87D3C9EC1FACBE6D0074C7AC /* Intervals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Intervals.swift; path = Model/Intervals.swift; sourceTree = "<group>"; };
 		87FD01091F6B32830076D6E4 /* PhasesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhasesViewController.swift; sourceTree = "<group>"; };
 		87FD010B1F6B34AC0076D6E4 /* PhaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseCell.swift; sourceTree = "<group>"; };
 		87FD010F1F6B852E0076D6E4 /* PhaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				87AD14891F644852009D778A /* Trainer.xcdatamodeld */,
 				870193101F6722750095D847 /* TrackWorkout.swift */,
 				87AD14B51F64788A009D778A /* TrackPhase.swift */,
+				87D3C9EC1FACBE6D0074C7AC /* Intervals.swift */,
 				87A4CF2F1F6AF8FE004D49D1 /* WorkoutsViewController.swift */,
 				87A4CF311F6B15F3004D49D1 /* WorkoutCell.swift */,
 				87FD01091F6B32830076D6E4 /* PhasesViewController.swift */,
@@ -341,6 +344,7 @@
 				87A4CF321F6B15F3004D49D1 /* WorkoutCell.swift in Sources */,
 				87FD010A1F6B32830076D6E4 /* PhasesViewController.swift in Sources */,
 				87FD011A1F6C206D0076D6E4 /* PhaseSection.swift in Sources */,
+				87D3C9ED1FACBE6D0074C7AC /* Intervals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,41 @@ protocol WorkoutDelegate {
     func processPhaseChange()
     func processComplete()
 }
+extension Workout {
+    // Text description for a workout
+    public override var description:String {
+        get {
+            var text = "Warmup \(warmup?.activity?.name ?? "") for \(warmup?.duration.format() ?? ""), "
+            for object in phases! {
+                if let intervals = object as? Intervals {
+                    text += intervals.description + ", "
+                }
+                else if let phase = object as? Phase {
+                    text += "\(phase.description), "
+                }
+            }
+            text += "Cooldown \(cooldown?.description ?? "")"
+            return text
+        }
+    }
+    // Expected time for a workout or NaN if based only on
+    // distance
+    public var time:TimeInterval {
+        get {
+            var duration:TimeInterval = TimeInterval((warmup?.duration)!)
+            duration += TimeInterval((cooldown?.duration) ?? 0.0)
+            for object in phases! {
+                if let phase = object as? Phase {
+                    duration += phase.time
+                    if duration.isNaN {
+                        break
+                    }
+                }
+            }
+            return duration
+        }
+    }
+}
 // Workout class to track the progress of a workout
 class TrackWorkout {
     public var description:String {
@@ -59,6 +94,7 @@ class TrackWorkout {
        while one is in progress.
      */
     fileprivate func createPhases(_ data: Workout) {
+        phases = []
         let warmup = TrackPhase(data: (data.warmup)!)
         phases.append(warmup)
         for object in data.phases! {
@@ -80,12 +116,6 @@ class TrackWorkout {
         let cooldown = TrackPhase(data: data.cooldown!)
         phases.append(cooldown)
         currentPhase = phases[0]
-        if let remaining = endTime?.timeIntervalSinceNow {
-            if remaining > 0.0 {
-                start(at: endTime! - duration)
-                update(distance: 0.0)
-            }
-        }
     }
     
     public init(data:Workout, delegate:WorkoutDelegate) {
@@ -114,6 +144,11 @@ class TrackWorkout {
         endTime = startTime! + duration
         data.last = endTime
         timeStamp = Date()
+        if let remaining = endTime?.timeIntervalSinceNow {
+            if remaining > 0.0 {
+                update(distance: 0.0)
+            }
+        }
     }
     // Calculate a new end time
     func updateEndTime() {
@@ -181,6 +216,7 @@ class TrackWorkout {
     // stop the workout
     public func stop() {
         endTime = nil
+        running = false
     }
     public var ttg:TimeInterval {
         get {

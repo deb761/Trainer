@@ -111,6 +111,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
         locationManager.activityType = .fitness
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
     }
     // Let the user know that a new phase is beginning
@@ -137,7 +138,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
     }
     // Create the workout tracker if this is a different workout, then fill in the labels
     // for the workout
-    // TODO prevent changing workouts while one is in progress
     @objc func fillLabels() {
         if workoutData != ViewController.workout?.data || ViewController.workout == nil {
             if let data = workoutData {
@@ -269,7 +269,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
                 else {
                     workout.resume()
                 }
-                if isGrantedNotificationAccess {
+                if isGrantedNotificationAccess && CLLocationManager.authorizationStatus() != .authorizedAlways {
                     createNotifications(workout)
                 }
                 timer = Timer.scheduledTimer(timeInterval: 1, target: self,
@@ -341,4 +341,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
         self.present(alert, animated: true, completion: nil)
     }
 }
-
+enum WorkoutError : Error {
+    case workoutRunning
+}
