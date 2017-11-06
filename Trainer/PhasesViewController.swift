@@ -137,7 +137,6 @@ class PhasesViewController: UITableViewController {
             // Delete the row from the data source
             if let phase = workout.phases?[indexPath.row] as? Phase {
                 if DataAccess.delete(phase) {
-                    //tableView.reloadSections(IndexSet([phasesSection]), with: .automatic)
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }
