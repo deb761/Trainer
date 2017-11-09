@@ -128,6 +128,7 @@ class TrackWorkout {
         running = true
         phaseNum = 0
         currentPhase = phases[phaseNum]
+        time = 0.0
 
         if let time = at {
             startTime = time
@@ -167,22 +168,19 @@ class TrackWorkout {
         timeStamp = now
         currentPhase = phases[phaseNum]
         var phaseChanged:Bool = false
-        while running {
+        //while running {
             currentPhase!.addDistance(distance: distance)
             if !currentPhase!.ended {
-                break
+                return
             }
             if phaseNum + 1 < phases.count {
                 phaseNum += 1
                 currentPhase = phases[phaseNum]
                 if let endTime = currentPhase!.endTime {
-                    if endTime.timeIntervalSinceNow > 0.0 {
-                        currentPhase!.startAt(Date())
-                        updateEndTime()
-                    }
-                }
-                else {
                     currentPhase!.start()
+                    if endTime.timeIntervalSinceNow > 0.0 {
+                         updateEndTime()
+                    }
                 }
                 phaseChanged = true
             }
@@ -190,9 +188,9 @@ class TrackWorkout {
                 // workout is over
                 running = false
                 delegate.processComplete()
-                break
+                //break
             }
-        }
+        //}
         if phaseChanged {
             delegate.processPhaseChange()
         }
