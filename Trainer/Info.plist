@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Add workout</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>workout-add</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>workoutname</key>
+				<string>New Workout</string>
+			</dict>
+		</dict>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

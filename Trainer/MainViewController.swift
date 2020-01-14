@@ -53,7 +53,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
             }
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.fillLabels),
-                                               name: .UIApplicationDidBecomeActive, object: nil)
+                                               name: UIApplication.didBecomeActiveNotification, object: nil)
         
         enableLocationServices()
     }
@@ -187,7 +187,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
         content.title = step.activity
         content.body = step.data.description
         //content.sound = UNNotificationSound.default()
-        content.sound = UNNotificationSound(named: "clong.caf")
+        content.sound = UNNotificationSound(named: convertToUNNotificationSoundName("clong.caf"))
         return content
     }
     // Create the notifications for the workout
@@ -211,7 +211,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
             let content = UNMutableNotificationContent()
             content.title = "Finished!"
             content.body = "Workout over"
-            content.sound = UNNotificationSound(named: "clong.caf")
+            content.sound = UNNotificationSound(named: convertToUNNotificationSoundName("clong.caf"))
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: workout.endTime!.timeIntervalSinceNow, repeats: false)
             addNotification(trigger: trigger, content: content, identifier: "Complete")
         }
@@ -336,11 +336,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
         ViewController.workout?.update(distance: distance)
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        let alert = UIAlertController(title: "Location Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        let alert = UIAlertController(title: "Location Error", message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }
 enum WorkoutError : Error {
     case workoutRunning
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUNNotificationSoundName(_ input: String) -> UNNotificationSoundName {
+	return UNNotificationSoundName(rawValue: input)
 }

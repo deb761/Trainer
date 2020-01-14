@@ -50,7 +50,7 @@ class WorkoutsViewController: UITableViewController, UIGestureRecognizerDelegate
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -90,7 +90,7 @@ class WorkoutsViewController: UITableViewController, UIGestureRecognizerDelegate
 
 
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
             if DataAccess.deleteWorkout(workouts[indexPath.row]) {
@@ -146,7 +146,7 @@ class WorkoutsViewController: UITableViewController, UIGestureRecognizerDelegate
     var longPressIndex:IndexPath?
     // Send user to WorkoutPhases page on long press
     @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.began {
+        if sender.state == UIGestureRecognizer.State.began {
             let p = sender.location(in: self.tableView)
             longPressIndex = self.tableView.indexPathForRow(at: p)
             performSegue(withIdentifier: "editWorkout", sender: self)

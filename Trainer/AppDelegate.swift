@@ -15,11 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let activities = DataAccess.getActivities()
         if activities.count == 0 {
-            // add a couple of activities s
+            // add a couple of activities
             DataAccess.addActivity("Walk")
             DataAccess.addActivity("Jog")
         }
@@ -80,6 +80,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
 
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        if shortcutItem.type == "workout-add" {
+            print("Add workout")
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            if let navigationController = window?.rootViewController as? UINavigationController {
+                if let firstVC = navigationController.viewControllers[0] as? WorkoutsViewController {
+                    firstVC.performSegue(withIdentifier: "addWorkout", sender: nil)
+                }
+            }
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let pvc = storyboard.instantiateViewController(withIdentifier: "Navigation")/* as! PhasesViewController
+            let workout = DataAccess.addWorkout("")
+            var workouts = DataAccess.getWorkouts()
+            workouts.append(workout)
+            pvc.workout = workout*/
+            //pvc.performSegue(withIdentifier: "addWorkout", sender: nil)
+
+            self.window?.rootViewController = pvc
+            self.window?.makeKeyAndVisible()
+        }
+    }
     // MARK: - Core Data Saving support
 
     func saveContext () {
