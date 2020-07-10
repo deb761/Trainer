@@ -82,6 +82,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
             // Enable any of your app's location features
             setupLocationServices()
             break
+            
+        default:
+            break
         }
     }
     func locationManager(_ manager: CLLocationManager,
@@ -104,7 +107,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WorkoutDelega
             
         case .notDetermined:
             break
-            }
+                
+        default:
+            break
+        }
     }
     
     func setupLocationServices() {

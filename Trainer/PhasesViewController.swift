@@ -110,7 +110,8 @@ class PhasesViewController: UITableViewController {
                 cell.lblLast.text = last.format()
             }
             else {
-                cell.lblLast.text = "Never"
+                cell.lblLast.text = NSLocalizedString("Never", comment: "The workout has not been done yet")
+
             }
         }
         
@@ -177,15 +178,22 @@ class PhasesViewController: UITableViewController {
     }
     // Ask the user if he/she wants to add an interval set or a phase
     @IBAction func addPhasePressed(_ sender: UIBarButtonItem) {
+        // get strings
+        let addPhaseLabel = NSLocalizedString("Add Activity", comment: "Add an activity to the workout")
+        let addPhaseMessage = NSLocalizedString("Select Activity Type", comment: "Message for adding an activity to a workout")
+        let activityTitle = NSLocalizedString("Activity", comment: "The activity title")
+        let intervalLabel = NSLocalizedString("Intervals", comment: "Set of activities to repeat")
+        let cancelLabel = NSLocalizedString("Cancel", comment: "Cancel an action")
+
         // Create action view
-        let alert = UIAlertController(title: "Add Phase", message: "Select Phase Type", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Phase", style: .default, handler: { (action) in
+        let alert = UIAlertController(title: addPhaseLabel, message: addPhaseMessage, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: activityTitle, style: .default, handler: { (action) in
             self.performSegue(withIdentifier: "addPhase", sender: self)
         }))
-        alert.addAction(UIAlertAction(title: "Intervals", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: intervalLabel, style: .default, handler: { (action) in
             self.performSegue(withIdentifier: "addIntervals", sender: self)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: cancelLabel, style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -225,5 +233,25 @@ class PhasesViewController: UITableViewController {
         }
     }
 
+    // Add Done button on top of keypad
+    func addDoneButtonOnKeyboard(view: UIView?)
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle = UIBarStyle.black
+        doneToolbar.isTranslucent = true
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let buttonTitle = NSLocalizedString("Done", comment: "Finished editing")
+        let done: UIBarButtonItem = UIBarButtonItem(title: buttonTitle, style: UIBarButtonItem.Style.done, target: view, action: #selector(self.resignFirstResponder))
 
+        doneToolbar.items = [flexSpace, done]
+        doneToolbar.sizeToFit()
+        if let accessorizedView = view as? UITextView {
+            accessorizedView.inputAccessoryView = doneToolbar
+            accessorizedView.inputAccessoryView = doneToolbar
+        } else if let accessorizedView = view as? UITextField {
+            accessorizedView.inputAccessoryView = doneToolbar
+            accessorizedView.inputAccessoryView = doneToolbar
+        }
+
+    }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>996901738411-gc1u1l9f9elp2h92blk1t3ibqu8i532c.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.996901738411-gc1u1l9f9elp2h92blk1t3ibqu8i532c</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDYXGZOHAl4GhZWExvUbG4Zj1gMSYRzVEQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>996901738411</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.inqint.workoutminder</string>
+	<key>PROJECT_ID</key>
+	<string>trainer-86ff4</string>
+	<key>STORAGE_BUCKET</key>
+	<string>trainer-86ff4.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:996901738411:ios:8860b333178bff861424ee</string>
+	<key>DATABASE_URL</key>
+	<string>https://trainer-86ff4.firebaseio.com</string>
+	<key>ADMOB_APP_ID</key>
+	<string>ca-app-pub-3658144280100378~3019022495</string>
+</dict>
+</plist>
